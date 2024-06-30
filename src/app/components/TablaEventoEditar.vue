@@ -26,9 +26,9 @@
           <td class="columnaTitulo"><label for="lugar">Lugar:</label></td>
           <td class="columnaContenido">
             <select id="lugar" name="lugar" v-model="evento.lugar" class="pequeno">
-              <option value="Salón 1">Salón 1</option>
-              <option value="Salón 2">Salón 2</option>
-              <option value="Salón 3">Salón 3</option>
+              <option value="Auditorio">Auditorio</option>
+              <option value="Aula Magna">Aula Magna</option>
+              <option value="Aulas de usos múltiples">Aulas de usos múltiples</option>
             </select>
           </td>
         </tr>
