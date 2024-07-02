@@ -98,6 +98,6 @@ para que se compile el proyecto, esto generará archivos en la ruta cecodic/src/
 * etc.
 
 ---
-⌨️ con ❤️ por [GeraMaldonado](https://github.com/GeraMaldonado) 😊
+⌨️ con ❤️ por [GeraMaldonado](https://labsol.cozcyt.gob.mx/git/GeraMaldonado) 😊
 
 Espero que esta documentación sea útil para tu proyecto. ¡Buena suerte!
