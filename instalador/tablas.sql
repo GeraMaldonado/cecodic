@@ -1,6 +1,3 @@
--- Seleccionar base de datos
-USE cecodic;
-
 -- Crear tabla eventos
 CREATE TABLE IF NOT EXISTS `eventos` (
   `ideventos` int NOT NULL AUTO_INCREMENT,
