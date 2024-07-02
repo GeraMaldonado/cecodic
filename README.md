@@ -30,7 +30,7 @@ _Estas instrucciones te permitirán obtener una copia del proyecto en funcionami
 #### Terminal
 1. Clonar el repositorio
   ```sh
-  git clone https://labsol.cozcyt.gob.mx/git/GeraMaldonado/cecodic.git
+  git clone https://github.com/GeraMaldonado/cecodic.git
   ```
 2. Dirigete a la carpeta cecodic/instalador/
   ```sh
@@ -98,6 +98,6 @@ para que se compile el proyecto, esto generará archivos en la ruta cecodic/src/
 * etc.
 
 ---
-⌨️ con ❤️ por [GeraMaldonado](https://labsol.cozcyt.gob.mx/git/GeraMaldonado) 😊
+⌨️ con ❤️ por [GeraMaldonado](https://github.com/GeraMaldonado) 😊
 
 Espero que esta documentación sea útil para tu proyecto. ¡Buena suerte!
