@@ -1,6 +1,6 @@
 -- Crear tabla eventos
 CREATE TABLE IF NOT EXISTS `eventos` (
-  `ideventos` int NOT NULL AUTO_INCREMENT,
+  `ideventos` bigint NOT NULL AUTO_INCREMENT,
   `titulo` text NOT NULL,
   `institucion` text NOT NULL,
   `fecha` date NOT NULL,
