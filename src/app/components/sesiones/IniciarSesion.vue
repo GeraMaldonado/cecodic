@@ -57,7 +57,7 @@ const login = async () => {
       });
     }
 
-    alert(`Respuesta del servidor: ${data.message}`);
+    alert(`Datos de acceso incorrectos`);
   } catch (error) {
     console.error(error);
   }
