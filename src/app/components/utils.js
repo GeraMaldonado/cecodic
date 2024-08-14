@@ -37,6 +37,7 @@ export const acortadorString = (str, maxLength) => {
   return str.substring(0, maxLength) + '...';
 };
 
-//despliegue local
-export const url = '/api';
-export const urlUpload = '/uploads'
+import {urlBackend} from '../urlBackend';
+
+export const url = `${urlBackend}/api`;
+export const urlUpload = `${urlBackend}/uploads`;
