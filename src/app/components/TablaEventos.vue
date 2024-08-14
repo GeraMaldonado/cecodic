@@ -11,22 +11,23 @@
         </select>
       </div>
 
-
-      <div class="contenedorFiltroFecha">
-        <div class="filtroFecha">
-          <p>Ver por:</p>
-          <select v-model="periodo" @change="filtrarPorPeriodo">
-            <option value="semana">Semana</option>
-            <option value="mes">Mes</option>
-          </select>
+      <div class="filtrofechas">
+        <div class="contenedorFiltroFecha">
+          <div class="filtroFecha">
+            <p>Ver por:</p>
+            <select v-model="periodo" @change="filtrarPorPeriodo">
+              <option value="semana">Semana</option>
+              <option value="mes">Mes</option>
+            </select>
+          </div>
         </div>
-      </div>
 
-      <div class="navegacionFecha">
-        <button @click="retrocederSemana" v-if="periodo === 'semana'">Semana Anterior</button>
-        <button @click="avanzarSemana" v-if="periodo === 'semana'">Semana Siguiente</button>
-        <button @click="retrocederMes" v-if="periodo === 'mes'">Mes Anterior</button>
-        <button @click="avanzarMes" v-if="periodo === 'mes'">Mes Siguiente</button>
+        <div class="navegacionFecha">
+          <button @click="retrocederSemana" v-if="periodo === 'semana'">Semana Anterior</button>
+          <button @click="avanzarSemana" v-if="periodo === 'semana'">Semana Siguiente</button>
+          <button @click="retrocederMes" v-if="periodo === 'mes'">Mes Anterior</button>
+          <button @click="avanzarMes" v-if="periodo === 'mes'">Mes Siguiente</button>
+        </div>
       </div>
     </div>
 
@@ -221,8 +222,10 @@ const obtenerPeriodoSeleccionado = async () => {
 .filtros {
   display: flex;
   justify-content: center;
-  margin-left: 10%;
   margin-bottom: -50px;
+  .filtrofechas{
+    display: flex;
+  }
 }
 
 .filtros p {
@@ -238,6 +241,17 @@ const obtenerPeriodoSeleccionado = async () => {
 
   select {
     background-color: rgb(246, 246, 246);
+  }
+}
+
+@media (max-width: 850px){
+  .filtros{
+    display: block;
+    margin-bottom: 25px;
+    .filtrofechas{
+    display: flex;
+    }
+
   }
 }
 
