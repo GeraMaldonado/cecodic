@@ -28,32 +28,30 @@ _Estas instrucciones te permitirán obtener una copia del proyecto en funcionami
 ### Instalación 🔧
 
 #### Terminal
-1. Clonar el repositorio
+1. Clonar el repositorio y dirigirse a la carpeta del proyecto
   ```sh
   git clone https://labsol.cozcyt.gob.mx/git/GeraMaldonado/cecodic.git
+  cd cecodic
   ```
-2. Dirigete a la carpeta cecodic/instalador/
-  ```sh
-  cd cecodic/instalador/
 
-  ```
-3. Darle permisos de ejecucion a `instalador.sh`
+2. Dirigete a la carpeta cecodic/instalador/ y ejecutar el instalador
   ```sh
-  chmod +x instalador.sh
-
-  ```
-4. Ejecutar el `instalador.sh`
-  ```sh
+  cd cecodic/instalador
+  chmod  +x instalador.sh
   ./instalador.sh
   ```
 
-5. Ejecutar la opcion 1 del instalador
+3. Seleccionar la opcion 1 del instalador, esto instalara/actualizara npm y mysql
+o tambien se puede escoger solo instalar mysql, solo crear usuario y base de datos en mysql, o crear usuario para el proyecto, la (ocpion 1 ejecutara todo).
+El instalador te dara la opcion de generar un archivo .env con la informaicon que se configuró la base de datos mysql.
 
-6. Regresar a la carpeta raiz cecodic
+4. Regresar a la carpeta raiz cecodic
   ```sh
   cd ../
   ```
-  
+
+
+
 El `instalador.sh` permite crear un `.env` con los valores ingresados para facilitar la conexión.
 Claro que este paso es opcional, se puede omitir y crear manualmente el `.env` o crear las variables de entorno
 
@@ -91,13 +89,10 @@ Esto iniciará solo el frontend del proyecto de manera aislada, cuando se estén
   ```
 para que se compile el proyecto, esto generará archivos en la ruta cecodic/src/public, los cuales se pueden usar de manera independiente como con GitHub-Pages, o con el backend
 
-## Expresiones de Gratitud 🎁
 
-* Comenta a otros sobre este proyecto 📢 
-* Mandame un mensaje 🤓.
-* etc.
+Es importante señalar que para poder usar el frontend de manera independiente es necesario modificar el contenido de un archivo js dentro de la dirección src/app, el archivo en cuestión es `urlBackend.js`, de tal modo que apunte al backed, la dirección esta por default vacía, y se recomienda que al ya desplegar el proyecto se mantenga vacía o se use una dirección local `http://localhost:3000`.
 
----
-⌨️ con ❤️ por [GeraMaldonado](https://labsol.cozcyt.gob.mx/git/GeraMaldonado) 😊
 
-Espero que esta documentación sea útil para tu proyecto. ¡Buena suerte!
+ejemplo del frontend por separado
+```sh
+export const urlBackend = 'http://xxx.xxx.x.xx:3000/';
