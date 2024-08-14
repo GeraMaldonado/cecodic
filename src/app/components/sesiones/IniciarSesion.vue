@@ -56,8 +56,7 @@ const login = async () => {
         window.location.reload();
       });
     }
-
-    alert(`Datos de acceso incorrectos`);
+    alert(`Respuesta del servidor: ${data.message}`);
   } catch (error) {
     console.error(error);
   }
