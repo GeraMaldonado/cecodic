@@ -30,8 +30,8 @@ _Estas instrucciones te permitirán obtener una copia del proyecto en funcionami
 #### Terminal
 1. Clonar el repositorio y dirigirse a la carpeta del proyecto
   ```sh
-  git clone https://labsol.cozcyt.gob.mx/git/GeraMaldonado/cecodic.git
-  cd cecodic
+  git clone https://github.com/GeraMaldonado/cecodic.git
+  cd ceodic
   ```
 
 2. Dirigete a la carpeta cecodic/instalador/ y ejecutar el instalador
@@ -92,7 +92,3 @@ para que se compile el proyecto, esto generará archivos en la ruta cecodic/src/
 
 Es importante señalar que para poder usar el frontend de manera independiente es necesario modificar el contenido de un archivo js dentro de la dirección src/app, el archivo en cuestión es `urlBackend.js`, de tal modo que apunte al backed, la dirección esta por default vacía, y se recomienda que al ya desplegar el proyecto se mantenga vacía o se use una dirección local `http://localhost:3000`.
 
-
-ejemplo del frontend por separado
-```sh
-export const urlBackend = 'http://xxx.xxx.x.xx:3000/';
