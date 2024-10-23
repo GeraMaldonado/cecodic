@@ -6,7 +6,6 @@
         <h2 class="tituloCard">{{ titulo }}</h2>
       </div>
     </div>
-    <h3 class="institucionCard">{{ institucion }}</h3>
     <p class="resumenCard">{{ resumen }}</p>
     <p class="ubicacionCard">{{ ubicacion }}</p>
     <p class="horaCard">{{ hora }} hrs</p>
@@ -16,7 +15,6 @@
 <script setup>
 const props = defineProps({
   titulo: String,
-  institucion: String,
   resumen: String,
   ubicacion: String,
   hora: String,
@@ -68,13 +66,6 @@ const props = defineProps({
   margin-left: 80px;
 }
 
-.institucionCard {
-  margin-top: 5px;
-  height: 10%;
-  font-size: 25px;
-  font-weight: 500;
-  color: black;
-}
 
 .ubicacionCard,
 .horaCard {
