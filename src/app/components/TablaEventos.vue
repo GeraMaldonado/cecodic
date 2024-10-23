@@ -165,7 +165,7 @@ const obtenerPeriodoSeleccionado = async () => {
 .tablaEventos th {
   color: white;
   background-color: rgb(120, 16, 5);
-  text-align: left;
+  text-align: center;
 }
 
 .tablaEventos tr:nth-child(odd) {
@@ -202,7 +202,7 @@ const obtenerPeriodoSeleccionado = async () => {
 .columnaInstitucion {
   width: 10%;
   color: black;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 700;
   text-align: center;
 }
