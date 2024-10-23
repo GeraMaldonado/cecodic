@@ -50,7 +50,7 @@
             </router-link>
           </td>
           <td class="columnaInstitucion">{{ acortadorString(evento.institucion, 30) }}</td>
-          <td class="columnaResumen">{{ acortadorString(evento.detalles, 150) }}</td>
+          <td class="columnaResumen">{{ acortadorString(evento.detalles, 100) }}</td>
           <td class="columnaFecha">{{ fechaCortaMes(evento) }}<br>{{ evento.hora.substring(0, 5) }} hrs</td>
           <td class="columnaLugar">{{ evento.lugar }}</td>
           <td v-if="admin">
@@ -208,8 +208,7 @@ const obtenerPeriodoSeleccionado = async () => {
 }
 
 .columnaResumen {
-  max-width: 40%;
-  width: 40%;
+  width: 25%;
 }
 
 .columnaFecha,
