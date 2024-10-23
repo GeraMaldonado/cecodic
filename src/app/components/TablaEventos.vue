@@ -34,7 +34,7 @@
     <table class="tablaEventos" v-if="eventosPaginados.length > 0">
       <thead>
         <tr>
-          <th>Título</th>
+          <th>Nombre del evento</th>
           <th>Institución</th>
           <th>Resumen</th>
           <th>Fecha y Hora</th>
