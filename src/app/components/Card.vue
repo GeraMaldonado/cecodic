@@ -84,7 +84,7 @@ const props = defineProps({
 }
 
 .resumenCard {
-  margin-top: -25px;
+  margin-top: 20px;
   height: 169px;
   width: 280px;
   line-height: 1.4;
