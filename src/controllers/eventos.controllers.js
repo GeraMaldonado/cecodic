@@ -80,11 +80,11 @@ const getUltimoEvento = async (req, res) => {
 
 const addEvento = async (req, res) => {
     try {
-        const { titulo, institucion, fecha, hora, lugar, resumen, detalles } = req.body;
+        const { titulo, institucion, fecha, hora, lugar, resumen, detalles, fechaFin, tipoEvento, estatus } = req.body;
         if (titulo === undefined || institucion === undefined || fecha === undefined || lugar === undefined) {
             res.status(400).send('Bad request');
         }
-        const evento = { titulo, institucion, fecha, hora, lugar, resumen, detalles };
+        const evento = { titulo, institucion, fecha, hora, lugar, resumen, detalles, fechaFin, tipoEvento, estatus };
         const connection = getConnection();
         const [result] = await connection.query('INSERT INTO eventos SET ?', evento);
         const insertedId = result.insertId;
