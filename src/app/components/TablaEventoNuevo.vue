@@ -14,6 +14,24 @@
         <td class="columnaTitulo"><label for="fecha">Fecha:</label></td>
         <td class="columnaContenido"><input type="date" id="fecha" name="fecha" v-model="fecha" class="pequeno" /></td>
       </tr>
+
+
+      <tr>
+        <td class="columnaTitulo"></td>
+        <td class="columnaContenido">
+          <input type="checkbox" id="toggleFechaFin" v-model="mostrarFechaFin" />
+          <label for="toggleFechaFin">¿Agregar fecha de finalización?</label>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="columnaTitulo"><label for="fechaFin">Fecha de finalización:</label></td>
+        <td class="columnaContenido"><input type="date" id="fechaFin" name="fechaFin" v-model="fechaFin" :disabled="!mostrarFechaFin" class="pequeno" /></td>
+      </tr>
+
+
+
+
       <tr>
         <td class="columnaTitulo"><label for="hora">Hora:</label></td>
         <td class="columnaContenido"><input type="time" id="hora" name="hora" v-model="hora" class="pequeno" /></td>
@@ -30,6 +48,36 @@
           </select>
         </td>
       </tr>
+
+
+
+
+
+      <tr>
+        <td class="columnaTitulo"><label for="estatus">Estatus:</label></td>
+        <td class="columnaContenido">
+          <select id="estatus" name="estatus" v-model="estatus" class="pequeno">
+            <option value="pendiente">Pendiente</option>
+            <option value="aceptado">Aceptado</option>
+          </select>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="columnaTitulo"><label for="tipoEvento">Tipo de evento:</label></td>
+        <td class="columnaContenido">
+          <input type="radio" id="privado" value="privado" v-model="tipoEvento" />
+          <label for="privado">Privado</label>
+          <input type="radio" id="publico" value="publico" v-model="tipoEvento" />
+          <label for="publico">Público</label>
+        </td>
+      </tr>
+
+
+
+
+
+
       <tr>
         <td class="columnaTitulo"><label for="detalles">Detalles:</label></td>
         <div class="borde">
@@ -48,7 +96,7 @@
   </table>
   <div class="boton-container">
     <BotonConfirmar :titulo="titulo" :institucion="institucion" :fecha="fecha" :hora="hora" :lugar="lugar"
-      :detalles="detalles" :img="img" :pdf="pdf" />
+      :detalles="detalles" :img="img" :pdf="pdf" :fechaFin="fechaFin" :tipoEvento="tipoEvento" :estatus="estatus"/>
   </div>
 </template>
 
@@ -65,6 +113,11 @@ const lugar = ref('');
 const detalles = ref('');
 const img = ref(null);
 const pdf = ref(null);
+const fechaFin = ref(null);
+const mostrarFechaFin = ref(false);
+const estatus = ref('pendiente');
+const tipoEvento = ref('publico');
+
 
 const onFileChange = (type, event) => {
   const file = event.target.files[0];

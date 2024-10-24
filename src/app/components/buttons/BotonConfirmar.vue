@@ -10,7 +10,7 @@ import { useRouter } from 'vue-router';
 import { crearEvento, actualizarEvento, subirArchivo } from '../queries/queries';
 
 const admin = localStorage.getItem('credencial');
-const props = defineProps(['idEvento', 'titulo', 'institucion', 'fecha', 'hora', 'lugar', 'resumen', 'detalles', 'img', 'pdf']);
+const props = defineProps(['idEvento', 'titulo', 'institucion', 'fecha', 'hora', 'lugar', 'resumen', 'detalles', 'img', 'pdf', 'fechaFin', 'estatus', 'tipoEvento']);
 const router = useRouter();
 
 const confirmarEvento = async () => {
@@ -20,8 +20,10 @@ const confirmarEvento = async () => {
     fecha: props.fecha,
     hora: props.hora,
     lugar: props.lugar,
-    resumen: props.resumen,
-    detalles: props.detalles
+    detalles: props.detalles,
+    fechaFin: props.fechaFin,
+    tipoEvento: props.tipoEvento,
+    estatus: props.estatus
   };
 
   if (!evento.titulo || !evento.institucion || !evento.fecha || !evento.hora || !evento.lugar) {
