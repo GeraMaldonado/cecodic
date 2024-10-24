@@ -22,11 +22,11 @@ const getEventosXFechas = async (req, res) => {
     }
 }
 
-const getEventosXFecha = async (req, res) => {
+  const getEventosXFecha = async (req, res) => {
     try {
         const { fechaEntrada } = req.params;
         const connection = getConnection();
-        const [result] = await connection.query('SELECT ideventos, titulo, institucion, fecha, hora, lugar, detalles, img FROM eventos WHERE fecha = ? ORDER BY CONCAT(fecha, " ", hora)', fechaEntrada);
+        const [result] = await connection.query('SELECT ideventos, titulo, institucion, fecha, hora, lugar, detalles, img, fechaFin, tipoEvento, estatus FROM eventos WHERE (fechaFin IS NULL AND fecha = ?) OR (? BETWEEN fecha AND fechaFin) ORDER BY CONCAT(fecha, " ", hora);', [fechaEntrada, fechaEntrada]);
         res.json(result);
     } catch (error) {
         res.status(500).send(error.message);
