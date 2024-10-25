@@ -16,6 +16,19 @@
           <td class="columnaContenido"><input type="date" id="fecha" name="fecha" v-model="evento.fecha"
               class="pequeno" /></td>
         </tr>
+
+
+        <tr>
+          <td class="columnaTitulo"><label for="fechaFin">Fecha Fin:</label></td>
+          <td class="columnaContenido">
+            <input type="checkbox" id="toggleFechaFin" v-model="usarFechaFin" />
+            <input type="date" id="fechaFin" name="fechaFin" v-model="evento.fechaFin" class="pequeno" :disabled="!usarFechaFin" />
+          </td>
+        </tr>
+
+
+
+
         <tr>
           <td class="columnaTitulo"><label for="hora">Hora:</label></td>
           <td class="columnaContenido"><input type="time" id="hora" name="hora" v-model="evento.hora" class="pequeno" />
@@ -32,6 +45,24 @@
             </select>
           </td>
         </tr>
+
+        <tr>
+          <td class="columnaTitulo"><label for="estatus">Estatus:</label></td>
+          <td class="columnaContenido">
+            <select id="estatus" name="estatus" v-model="evento.estatus">
+              <option value="pendiente">Pendiente</option>
+              <option value="aceptado">Aceptado</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td class="columnaTitulo"><label for="tipoEvento">Tipo de Evento:</label></td>
+          <td class="columnaContenido">
+            <label><input type="radio" value="privado" v-model="evento.tipoEvento" /> Privado</label>
+            <label><input type="radio" value="publico" v-model="evento.tipoEvento" /> Público</label>
+          </td>
+        </tr>
+
         <tr>
           <td class="columnaTitulo"><label for="detalles">Detalles:</label></td>
           <div class="borde">
@@ -51,8 +82,8 @@
     </table><br>
     <div class="boton-container">
       <BotonConfirmar :idEvento="evento.ideventos" :titulo="evento.titulo" :institucion="evento.institucion"
-        :fecha="evento.fecha" :hora="evento.hora" :lugar="evento.lugar" :detalles="evento.detalles" :img="img"
-        :pdf="pdf" />
+        :fecha="evento.fecha" :hora="evento.hora" :fechaFin="evento.fechaFin" :lugar="evento.lugar"
+        :detalles="evento.detalles" :img="img" :pdf="pdf" :estatus="evento.estatus" :tipoEvento="evento.tipoEvento" />
     </div>
   </div>
   <div v-else>
@@ -75,10 +106,15 @@ const evento = ref({
   fecha: '',
   hora: '',
   lugar: '',
-  detalles: ''
+  detalles: '',
+  fechaFin: '',
+  tipoEvento: '',
+  estatus: ''
 });
 const img = ref(null);
 const pdf = ref(null);
+
+const usarFechaFin = ref(!!evento.value.fechaFin);
 
 const onFileChange = (type, event) => {
   const file = event.target.files[0];
@@ -89,8 +125,13 @@ const onFileChange = (type, event) => {
 onMounted(async () => {
   await getEvento(evento, route);
   evento.value.fecha = formatearFecha(evento.value.fecha);
+  if (evento.value.fechaFin != null) {
+    evento.value.fechaFin = formatearFecha(evento.value.fechaFin);
+    usarFechaFin.value = true;
+  }
+
 });
-</script>
+</script>c
 
 <style scoped>
 .eventoInformacion {
