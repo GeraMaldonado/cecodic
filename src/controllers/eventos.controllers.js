@@ -98,11 +98,11 @@ const updateEvento = async (req, res) => {
     try {
         const connection = getConnection();
         const { ideventos } = req.params;
-        const { titulo, institucion, fecha, hora, lugar, resumen, detalles } = req.body;
+        const { titulo, institucion, fecha, hora, lugar, resumen, detalles, fechaFin, tipoEvento, estatus } = req.body;
         if (titulo === undefined || institucion === undefined || fecha === undefined || lugar === undefined) {
             res.status(400).send('Bad request')
         }
-        const evento = { titulo, institucion, fecha, hora, lugar, resumen, detalles };
+        const evento = { titulo, institucion, fecha, hora, lugar, resumen, detalles,fechaFin, tipoEvento, estatus };
         await connection.query('UPDATE eventos SET ? WHERE ideventos = ?', [evento, ideventos]);
         res.json({ message: `Evento actualizado` });
     } catch (error) {
