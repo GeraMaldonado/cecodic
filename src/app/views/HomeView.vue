@@ -16,7 +16,7 @@
         <div class="tarjetaWrapper">
           <router-link :to="{ name: 'evento-individual', params: { id: evento.ideventos } }" class="linkEventoUnico">
             <Card :titulo="acortadorString(evento.titulo, 62)" :resumen="acortadorString(evento.detalles, 140)" :ubicacion="evento.lugar"
-              :hora="periodo === 'dia' ? evento.hora.substring(0, 5) : `${fechaCortaDia(evento)}\n ${evento.hora.substring(0, 5)}`"
+               :hora="evento.fechaFin ? `Del ${fechaCortaDia(evento)} al ${fechaCortaDia({ fecha: evento.fechaFin })}` : (periodo === 'dia' ? evento.hora.substring(0, 5) : `${fechaCortaDia(evento)}\n ${evento.hora.substring(0, 5)}`)"
               :img="evento.img ? `${urlUpload}/${evento.img}` : null" />
           </router-link>
         </div>
