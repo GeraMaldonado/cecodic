@@ -96,7 +96,8 @@
   </table>
   <div class="boton-container">
     <BotonConfirmar :titulo="titulo" :institucion="institucion" :fecha="fecha" :hora="hora" :lugar="lugar"
-      :detalles="detalles" :img="img" :pdf="pdf" :fechaFin="fechaFin" :tipoEvento="tipoEvento" :estatus="estatus"/>
+      :detalles="detalles" :img="img" :pdf="pdf" :fechaFin="mostrarFechaFin ? fechaFin : null" 
+      :tipoEvento="tipoEvento" :estatus="estatus"/>
   </div>
 </template>
 

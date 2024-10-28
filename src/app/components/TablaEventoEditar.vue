@@ -82,7 +82,7 @@
     </table><br>
     <div class="boton-container">
       <BotonConfirmar :idEvento="evento.ideventos" :titulo="evento.titulo" :institucion="evento.institucion"
-        :fecha="evento.fecha" :hora="evento.hora" :fechaFin="evento.fechaFin" :lugar="evento.lugar"
+        :fecha="evento.fecha" :hora="evento.hora" :fechaFin="usarFechaFin ? evento.fechaFin : null" :lugar="evento.lugar"
         :detalles="evento.detalles" :img="img" :pdf="pdf" :estatus="evento.estatus" :tipoEvento="evento.tipoEvento" />
     </div>
   </div>
