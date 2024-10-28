@@ -20,14 +20,19 @@
           <p class="institucion">{{ institucion }}</p>
         </td>
       </tr>
-      <tr>
-        <td class="columnaTitulo">
-          <h3>Fecha: </h3>
-        </td>
-        <td class="columnaContenido">
-          <p class="fechaLugar">{{ fechaLarga(fecha) }}</p>
-        </td>
-      </tr>
+    <tr>
+      <td class="columnaTitulo">
+        <h3>Fecha: </h3>
+      </td>
+      <td class="columnaContenido">
+        <p class="fechaLugar">
+          <span v-if="fechaFin">del {{ fechaLarga(fecha) }} <br> al {{ fechaLarga(fechaFin) }}</span>
+          <span v-else>{{ fechaLarga(fecha) }}</span>
+        </p>
+      </td>
+    </tr>
+
+
       <tr>
         <td class="columnaTitulo">
           <h3>Hora: </h3>
@@ -78,7 +83,8 @@ const props = defineProps({
   lugar: String,
   detalles: String,
   img: String,
-  pdf: String
+  pdf: String,
+  fechaFin: String
 });
 
 const rutaArchivo = (nombre) => `${urlUpload}/${nombre}`
