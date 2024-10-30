@@ -41,11 +41,11 @@
       <tr>
         <td class="columnaTitulo"><label for="lugar">Lugar:</label></td>
         <td class="columnaContenido">
-          <select id="lugar" name="lugar" v-model="lugar" class="pequeno">
-            <option value="Auditorio">Auditorio</option>
-            <option value="Aula Magna">Aula Magna</option>
-            <option value="Aulas de usos múltiples">Aulas de usos múltiples</option>
-          </select>
+          <div>
+            <label><input type="checkbox" value="Auditorio" v-model="lugaresSeleccionados" /> Auditorio</label>
+            <label><input type="checkbox" value="Aula Magna" v-model="lugaresSeleccionados" /> Aula Magna</label>
+            <label><input type="checkbox" value="Aulas de usos múltiples" v-model="lugaresSeleccionados" /> Aulas de usos múltiples</label>
+          </div>
         </td>
       </tr>
 
@@ -95,7 +95,7 @@
     </div>
   </table>
   <div class="boton-container">
-    <BotonConfirmar :titulo="titulo" :institucion="institucion" :fecha="fecha" :hora="hora" :lugar="lugar"
+    <BotonConfirmar :titulo="titulo" :institucion="institucion" :fecha="fecha" :hora="hora" :lugar="lugaresSeleccionados.join(', ')"
       :detalles="detalles" :img="img" :pdf="pdf" :fechaFin="mostrarFechaFin ? fechaFin : null" 
       :tipoEvento="tipoEvento" :estatus="estatus"/>
   </div>
@@ -109,7 +109,7 @@ const titulo = ref('');
 const institucion = ref('');
 const fecha = ref('');
 const hora = ref('');
-const lugar = ref('');
+const lugaresSeleccionados = ref([]);
 
 const detalles = ref('');
 const img = ref(null);

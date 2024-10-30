@@ -38,11 +38,11 @@
         <tr>
           <td class="columnaTitulo"><label for="lugar">Lugar:</label></td>
           <td class="columnaContenido">
-            <select id="lugar" name="lugar" v-model="evento.lugar" class="pequeno">
-              <option value="Auditorio">Auditorio</option>
-              <option value="Aula Magna">Aula Magna</option>
-              <option value="Aulas de usos múltiples">Aulas de usos múltiples</option>
-            </select>
+            <div>
+              <label><input type="checkbox" value="Auditorio" v-model="lugaresSeleccionados" /> Auditorio</label>
+              <label><input type="checkbox" value="Aula Magna" v-model="lugaresSeleccionados" /> Aula Magna</label>
+              <label><input type="checkbox" value="Aulas de usos múltiples" v-model="lugaresSeleccionados" /> Aulas de usos múltiples</label>
+            </div>
           </td>
         </tr>
 
@@ -82,7 +82,7 @@
     </table><br>
     <div class="boton-container">
       <BotonConfirmar :idEvento="evento.ideventos" :titulo="evento.titulo" :institucion="evento.institucion"
-        :fecha="evento.fecha" :hora="evento.hora" :fechaFin="usarFechaFin ? evento.fechaFin : null" :lugar="evento.lugar"
+        :fecha="evento.fecha" :hora="evento.hora" :fechaFin="usarFechaFin ? evento.fechaFin : null" :lugar="lugaresSeleccionados.join(', ')"
         :detalles="evento.detalles" :img="img" :pdf="pdf" :estatus="evento.estatus" :tipoEvento="evento.tipoEvento" />
     </div>
   </div>
@@ -115,6 +115,7 @@ const img = ref(null);
 const pdf = ref(null);
 
 const usarFechaFin = ref(!!evento.value.fechaFin);
+const lugaresSeleccionados = ref([]);
 
 const onFileChange = (type, event) => {
   const file = event.target.files[0];
@@ -128,6 +129,9 @@ onMounted(async () => {
   if (evento.value.fechaFin != null) {
     evento.value.fechaFin = formatearFecha(evento.value.fechaFin);
     usarFechaFin.value = true;
+  }
+  if (evento.value.lugar) {
+    lugaresSeleccionados.value = evento.value.lugar.split(', ');
   }
 
 });
