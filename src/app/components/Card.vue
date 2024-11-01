@@ -44,11 +44,14 @@ const props = defineProps({
 .card-img {
   width: 120px;
   height: 120px;
+  object-fit: cover;
   border-radius: 50%;
   border: 7px solid rgb(246, 246, 246);
+  background-color: rgb(246, 246, 246);
   position: absolute;
   top: -30px;
   left: -40px;
+  overflow: hidden;
 }
 
 .contenedorTitulo {
