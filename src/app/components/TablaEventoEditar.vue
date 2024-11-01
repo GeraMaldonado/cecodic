@@ -135,7 +135,7 @@ onMounted(async () => {
   }
 
 });
-</script>c
+</script>
 
 <style scoped>
 .eventoInformacion {
