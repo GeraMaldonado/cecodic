@@ -8,6 +8,8 @@ import TablaEventoNuevo from '../components/TablaEventoNuevo.vue';
 </script>
 <style scoped>
 .contenedor {
-  padding: 5% 10%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 </style>
