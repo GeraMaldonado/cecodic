@@ -1,5 +1,5 @@
 <template>
-  <button class="boton" v-if="admin" @click="confirmarEvento">
+  <button class="boton" @click="confirmarEvento">
     <i class="fa-solid fa-floppy-disk fa-2xl" style="color: #63E6BE;"></i>
     <span>Guardar</span>
   </button>
@@ -9,7 +9,6 @@
 import { useRouter } from 'vue-router';
 import { crearEvento, actualizarEvento, subirArchivo } from '../queries/queries';
 
-const admin = localStorage.getItem('credencial');
 const props = defineProps(['idEvento', 'titulo', 'institucion', 'fecha', 'hora', 'lugar', 'resumen', 'detalles', 'img', 'pdf', 'fechaFin', 'estatus', 'tipoEvento']);
 const router = useRouter();
 
