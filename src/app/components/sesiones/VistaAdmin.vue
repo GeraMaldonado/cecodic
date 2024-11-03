@@ -3,6 +3,7 @@
     <div class="header">
       <h1 class="textoAdministrador">Administrador</h1>
       <BotonNuevoEvento class="botonNuevoEvento" />
+      <IconoEventosPendientes></IconoEventosPendientes>
       <CerrarSesion class="botonCerrarSesion" />
     </div>
   </div>
@@ -11,6 +12,7 @@
 <script setup>
 import CerrarSesion from './CerrarSesion.vue';
 import BotonNuevoEvento from '../buttons/BotonNuevoEvento.vue';
+import IconoEventosPendientes from './IconoEventosPendientes.vue'
 const admin = (localStorage.getItem('credencial'));
 </script>
 
