@@ -126,3 +126,30 @@ export const enviarEventoUsuario = async (evento) => {
     throw error;
   }
 };
+
+
+export const getEventosPendientes = async (eventos) => {
+  try {
+    const response = await fetch(`${url}/eventos/pendientes`)
+    eventos.value = await response.json();
+  } catch (err) {
+    console.log(err.message)
+  }
+};
+
+export const actualizarEstatusEvento = async (idEvento, estatus) => {
+  try {
+    const response = await fetch(`${url}/eventos/estatus`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ ideventos: idEvento, estatus })
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(`Error al cambiar el estatus del evento ${idEvento}:`, error);
+    throw error;
+  }
+};
