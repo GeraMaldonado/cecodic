@@ -24,8 +24,6 @@ export const getEvento = async (evento, route) => {
   }
 };
 
-
-
 export const crearEvento = async (evento) => {
   try {
     const response = await fetch(`${url}/eventos`, {
@@ -91,6 +89,40 @@ export const subirArchivo = async (id, file, tipo) => {
     return data;
   } catch (error) {
     console.error(`Error al subir el archivo (${tipo}):`, error);
+    throw error;
+  }
+};
+
+export const comprobarCorreo = async(contactoUsuario) => {
+  try {
+    const response = await fetch(`${url}/eventos/evento/verificacion`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(contactoUsuario),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(`Error al enviar el correo de verificación:`, error);
+    throw error;
+  }
+};
+
+export const enviarEventoUsuario = async (evento) => {
+  try {
+    const response = await fetch(`${url}/eventos/evento`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(evento),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error al enviar la solicitud:', error);
     throw error;
   }
 };
