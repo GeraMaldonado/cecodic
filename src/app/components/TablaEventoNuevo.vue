@@ -86,20 +86,62 @@
             </select>
           </td>
         </tr>
+
+
+
+        <section v-if="!admin">
+            <tr>
+              <td class="columnaEtiqueta"><label for="nombreUsuario">Nombre:</label></td>
+              <td class="columnaContacto"><input type="text" id="nombreUsuario" name="nombreUsuario" v-model="nombreUsuario" required /></td>
+            </tr>
+            <tr>
+              <td class="columnaEtiqueta"><label for="correoUsuario">Correo:</label></td>
+              <td class="columnaContacto"><input type="email" id="correoUsuario" name="correoUsuario" v-model="correoUsuario" required /></td>
+            </tr>
+            <tr>
+              <td class="columnaEtiqueta"><label for="numeroUsuario">Teléfono:</label></td>
+              <td class="columnaContacto"><input type="tel" id="numeroUsuario" name="numeroUsuario" v-model="numeroUsuario" required /></td>
+            </tr>
+            <!-- Botón de verificación solo se habilita si hay correo -->
+            <tr>
+              <td colspan="2" class="columnaContacto">
+                <button :disabled="!correoUsuario" @click="enviarCodigoVerificacion">Enviar Código de Verificación</button>
+              </td>
+            </tr>
+            <!-- Campo para ingresar el código de verificación -->
+            <tr v-if="codigoEnviado">
+              <td class="columnaEtiqueta"><label for="codigoUsuario">Código de Verificación:</label></td>
+              <td class="columnaContacto">
+                <input type="text" id="codigoUsuario" name="codigoUsuario" v-model="codigoUsuario" required />
+              </td>
+            </tr>
+          </section>
+
+
+
+
       </div>
     </div>
   </table>
-  <div class="boton-container">
+  <div class="boton-container" v-if="admin">
     <BotonConfirmar :titulo="titulo" :institucion="institucion" :fecha="fecha" :hora="hora" :lugar="lugaresSeleccionados.join(', ')"
       :detalles="detalles" :img="img" :pdf="pdf" :fechaFin="mostrarFechaFin ? fechaFin : null" 
-      :tipoEvento="tipoEvento" :estatus="estatus" />
+      :tipoEvento="tipoEvento" :estatus="estatus"/>
   </div>
+    <div class="boton-container" v-else>
+      <BotonEnviarEventoUsuario :titulo="titulo" :institucion="institucion" :fecha="fecha" :hora="hora" :lugar="lugaresSeleccionados.join(', ')" 
+        :detalles="detalles" :img="img" :pdf="pdf" :fechaFin="mostrarFechaFin ? fechaFin : null" 
+        :tipoEvento="tipoEvento" :correo="correoUsuario" :codigo="codigoUsuario" :disabled="!codigoUsuario" 
+      />
+    </div>
 </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import BotonConfirmar from './buttons/BotonConfirmar.vue';
+import BotonEnviarEventoUsuario from './buttons/BotonEnviarEventoUsuario.vue';
+import { comprobarCorreo } from './queries/queries';
 
 const titulo = ref('');
 const institucion = ref('');
@@ -116,6 +158,27 @@ const estatus = ref('pendiente');
 const tipoEvento = ref('publico');
 const admin = localStorage.getItem('credencial');
 
+const nombreUsuario = ref('');
+const correoUsuario = ref('');
+const numeroUsuario = ref('');
+const codigoUsuario = ref('');
+const codigoEnviado = ref(false);
+
+const enviarCodigoVerificacion = async () => {
+  const contactoUsuario = {
+    correo: correoUsuario.value,
+    nombre: nombreUsuario.value,
+    telefono: numeroUsuario.value,
+  };
+
+  try {
+    const respuesta = await comprobarCorreo(contactoUsuario);
+      alert(`Código de verificación enviado a ${correoUsuario.value}`);
+      codigoEnviado.value = true;
+  } catch (error) {
+    alert('Error al enviar el código de verificación. Por favor, revisa la conexión y vuelve a intentar.');
+  }
+};
 
 const onFileChange = (type, event) => {
   const file = event.target.files[0];
