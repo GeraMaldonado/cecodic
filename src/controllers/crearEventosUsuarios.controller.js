@@ -29,7 +29,7 @@ const addEvento = async (req, res) => {
         const dataGuardada = cache.get(correo);
 
         if (!dataGuardada || dataGuardada.codigoVerificacion !== codigo) {
-            return res.status(400).json({ message: 'El código ha expirado o es inválido' });
+            return res.status(400).json({ message: 'El código ha expirado o es inválido', error: "El código ha expirado o es inválido" });
         }
 
         if (!titulo || !institucion || !fecha || !lugar) {
