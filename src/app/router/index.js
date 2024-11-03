@@ -5,8 +5,10 @@ import EventoNuevoView from '@/views/EventoNuevoView.vue'
 import EditarEvento from '@/views/EditarEvento.vue'
 import AdminView from '@/views/AdminView.vue'
 
+const isAdmin = () => localStorage.getItem('credencial') !== null;
+
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL), // Cambiado a createWebHistory
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
@@ -31,7 +33,14 @@ const router = createRouter({
     {
       path: '/editevento/:id',
       name: 'editar-evento',
-      component: EditarEvento
+      component: EditarEvento,
+      beforeEnter: (to, from, next) => {
+        if (isAdmin()) {
+          next();
+        } else {
+          next({ name: 'home' });
+        }
+      }
     },
     {
       path: '/equipo',
