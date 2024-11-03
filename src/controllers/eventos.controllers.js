@@ -122,6 +122,42 @@ const deleteEvento = async (req, res) => {
     }
 }
 
+const getEventosPendientes = async(req, res) =>{
+    try {
+        const connection = getConnection();
+        const[ result ] = await connection.query('SELECT * FROM eventos WHERE estatus = "pendiente" ORDER BY CONCAT(fecha, " ", hora)');
+        res.json(result);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+};
+
+const updateEventosEstatus = async (req, res) => {
+    try {
+        const connection = getConnection();
+        const { estatus, ideventos } = req.body;
+        console.log(estatus, ideventos)
+        const result = await connection.query('UPDATE eventos SET estatus = ? WHERE ideventos = ?', [estatus, ideventos]);
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: 'Evento no encontrado' });
+        }
+        res.json({ message: 'Evento actualizado' });
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+};
+
+const getTotalEventosPendientes = async (req, res) => {
+    try {
+        const connection = getConnection();
+        const [result] = await connection.query('SELECT COUNT(*) AS total FROM eventos WHERE estatus = "pendiente" ORDER BY CONCAT(fecha, " ", hora)');
+        res.json(result);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+}
+
+
 module.exports = {
     methods: {
         getEventos,
@@ -133,6 +169,9 @@ module.exports = {
         getUltimoEvento,
         addEvento,
         updateEvento,
-        deleteEvento
+        deleteEvento,
+        getEventosPendientes,
+        updateEventosEstatus,
+        getTotalEventosPendientes
     }
 };
