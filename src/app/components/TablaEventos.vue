@@ -22,6 +22,8 @@
           </div>
         </div>
 
+        <VueDatePicker v-model="monthPickerValue" month-picker v-if="periodo === 'mes'" @update:modelValue="onDatePickerChange"/>
+
         <div class="navegacionFecha">
           <button @click="retrocederSemana" v-if="periodo === 'semana'">Semana Anterior</button>
           <button @click="avanzarSemana" v-if="periodo === 'semana'">Semana Siguiente</button>
@@ -86,6 +88,10 @@ const eventosFiltrados = ref([]);
 const paginaActual = ref(1);
 const elementosPorPagina = 9;
 const fechaActual = ref(new Date());
+const monthPickerValue = ref({
+  month: fechaActual.value.getMonth(),
+  year: fechaActual.value.getFullYear()
+});
 
 const institucionesUnicas = computed(() => {
   const instituciones = new Set(eventos.value.map(evento => evento.institucion));
@@ -97,9 +103,17 @@ onMounted(async () => {
   filtrarPorInstitucion();
 });
 
-watch([periodo, fechaActual], () => {
-  obtenerPeriodoSeleccionado();
+watch(fechaActual, (newDate) => {
+  monthPickerValue.value = {
+    month: newDate.getMonth(),
+    year: newDate.getFullYear()
+  };
 });
+
+const onDatePickerChange = (value) => {
+  fechaActual.value = new Date(value.year, value.month);
+  obtenerPeriodoSeleccionado();
+}
 
 const eventosPaginados = computed(() => {
   const inicio = (paginaActual.value - 1) * elementosPorPagina;
@@ -123,23 +137,23 @@ const filtrarPorInstitucion = () => {
 };
 
 const retrocederSemana = async () => {
-  fechaActual.value = new Date(fechaActual.value.setDate(fechaActual.value.getDate() - 7));
+  fechaActual.value.setDate(fechaActual.value.getDate() - 7);
   await obtenerPeriodoSeleccionado();
 };
 
 const avanzarSemana = async () => {
-  fechaActual.value = new Date(fechaActual.value.setDate(fechaActual.value.getDate() + 7));
+  fechaActual.value.setDate(fechaActual.value.getDate() + 7);
   await obtenerPeriodoSeleccionado();
 };
 
 const retrocederMes = async () => {
   fechaActual.value = new Date(fechaActual.value.setMonth(fechaActual.value.getMonth() - 1));
-  await obtenerPeriodoSeleccionado();
+  obtenerPeriodoSeleccionado();
 };
 
 const avanzarMes = async () => {
   fechaActual.value = new Date(fechaActual.value.setMonth(fechaActual.value.getMonth() + 1));
-  await obtenerPeriodoSeleccionado();
+  obtenerPeriodoSeleccionado();
 };
 
 const obtenerPeriodoSeleccionado = async () => {
