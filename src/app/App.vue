@@ -26,8 +26,8 @@ import VistaAdmin from './components/sesiones/VistaAdmin.vue';
 <style>
 * {
   box-sizing: border-box;
-  position: relative;
-  min-width: 0;
+/*  position: relative;
+  min-width: 0; */
   font-family: 'Jost Variable', sans-serif;
 }
 
