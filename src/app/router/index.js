@@ -51,7 +51,14 @@ const router = createRouter({
     {
       path: '/admin',
       name: 'admin',
-      component: AdminView
+      component: AdminView,
+      beforeEnter: (to, from, next) => {
+        if (!isAdmin()) {
+          next();
+        } else {
+          next({ name: 'home' });
+        }
+      }
     },{
       path: '/eventospendientes',
       name: 'evento-pendientes',
