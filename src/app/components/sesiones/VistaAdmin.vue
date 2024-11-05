@@ -17,6 +17,7 @@ const admin = (localStorage.getItem('credencial'));
 </script>
 
 <style scoped>
+/*
 .contenedorAdministrador {
   padding: 20px;
 }
@@ -37,5 +38,5 @@ const admin = (localStorage.getItem('credencial'));
 
 .botonCerrarSesion {
   margin-left: auto;
-}
+}*/
 </style>
