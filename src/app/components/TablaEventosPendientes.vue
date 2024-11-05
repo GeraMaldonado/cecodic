@@ -25,15 +25,9 @@
           <td class="columnaLugar">{{ eventoPendiente.lugar }}</td>
           <td class="columnaLugar">{{ eventoPendiente.estatus }}</td>
           <td v-if="admin">
-          <td>
             <BotonEditar :idEvento="eventoPendiente.ideventos" />
-          </td>
-          <td>
             <BotonEliminar :eventoId="eventoPendiente.ideventos" />
-          </td>
-          <td>
             <BotonAceptarEvento :idEvento="eventoPendiente.ideventos" :estatus="eventoPendiente.estatus" />
-          </td>
           </td>
         </tr>
       </tbody>

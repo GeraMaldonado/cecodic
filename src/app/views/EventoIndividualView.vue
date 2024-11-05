@@ -1,7 +1,7 @@
 <template>
   <div v-if="evento" class="contenedor">
     <TablaEvento :titulo="evento.titulo" :institucion="evento.institucion" :fecha="evento.fecha" :hora="evento.hora"
-      :lugar="evento.lugar" :detalles="evento.detalles" :img="evento.img" :pdf="evento.pdf" :fechaFin="evento.fechaFin" />
+      :lugar="evento.lugar" :detalles="evento.detalles" :img="evento.img" :pdf="evento.pdf" :fechaFin="evento.fechaFin" :tipoEvento="evento.tipoEvento"/>
     <div class="botones">
       <BotonEditar :idEvento="evento.ideventos" mostrarTexto />
       <BotonEliminar :eventoId="evento.ideventos" mostrarTexto />

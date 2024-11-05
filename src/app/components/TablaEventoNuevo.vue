@@ -1,8 +1,7 @@
 <template>
   <div class="pantalla">
   <table class="contenedorTabla">
-    <div class="contenedorFilas">
-      <div style="width: 90%;">
+    <tbody class="contenedorFilas"> 
         <tr>
           <td class="columnaEtiqueta"><label for="titulo">Evento:</label></td>
           <td class="columnaInformacion"><input type="text" id="titulo" name="titulo" v-model="titulo" /></td>
@@ -85,43 +84,34 @@
               <option value="aceptado">Aceptado</option>
             </select>
           </td>
-        </tr>
+        </tr v-if="!admin">
+          <tr>
+            <td class="columnaEtiqueta"><label for="nombreUsuario">Nombre:</label></td>
+            <td class="columnaContacto"><input type="text" id="nombreUsuario" name="nombreUsuario" v-model="nombreUsuario" required /></td>
+          </tr>
+          <tr v-if="!admin">
+            <td class="columnaEtiqueta"><label for="correoUsuario">Correo:</label></td>
+            <td class="columnaContacto"><input type="email" id="correoUsuario" name="correoUsuario" v-model="correoUsuario" required /></td>
+          </tr>
+          <tr v-if="!admin">
+            <td class="columnaEtiqueta"><label for="numeroUsuario">Teléfono:</label></td>
+            <td class="columnaContacto"><input type="tel" id="numeroUsuario" name="numeroUsuario" v-model="numeroUsuario" required /></td>
+          </tr>
 
+          <tr v-if="!admin">
+            <td colspan="2" class="columnaContacto">
+              <button :disabled="!correoUsuario" @click="enviarCodigoVerificacion">Enviar Código de Verificación</button>
+            </td>
+          </tr>
 
-
-        <section v-if="!admin">
-            <tr>
-              <td class="columnaEtiqueta"><label for="nombreUsuario">Nombre:</label></td>
-              <td class="columnaContacto"><input type="text" id="nombreUsuario" name="nombreUsuario" v-model="nombreUsuario" required /></td>
-            </tr>
-            <tr>
-              <td class="columnaEtiqueta"><label for="correoUsuario">Correo:</label></td>
-              <td class="columnaContacto"><input type="email" id="correoUsuario" name="correoUsuario" v-model="correoUsuario" required /></td>
-            </tr>
-            <tr>
-              <td class="columnaEtiqueta"><label for="numeroUsuario">Teléfono:</label></td>
-              <td class="columnaContacto"><input type="tel" id="numeroUsuario" name="numeroUsuario" v-model="numeroUsuario" required /></td>
-            </tr>
-            <!-- Botón de verificación solo se habilita si hay correo -->
-            <tr>
-              <td colspan="2" class="columnaContacto">
-                <button :disabled="!correoUsuario" @click="enviarCodigoVerificacion">Enviar Código de Verificación</button>
-              </td>
-            </tr>
-            <!-- Campo para ingresar el código de verificación -->
-            <tr v-if="codigoEnviado">
-              <td class="columnaEtiqueta"><label for="codigoUsuario">Código de Verificación:</label></td>
-              <td class="columnaContacto">
-                <input type="text" id="codigoUsuario" name="codigoUsuario" v-model="codigoUsuario" required />
-              </td>
-            </tr>
-          </section>
-
-
-
-
-      </div>
-    </div>
+          <tr v-if="codigoEnviado">
+            <td class="columnaEtiqueta"><label for="codigoUsuario">Código de Verificación:</label></td>
+            <td class="columnaContacto">
+              <input type="text" id="codigoUsuario" name="codigoUsuario" v-model="codigoUsuario" required />
+            </td>
+          </tr>
+      
+    </tbody>
   </table>
   <div class="boton-container" v-if="admin">
     <BotonConfirmar :titulo="titulo" :institucion="institucion" :fecha="fecha" :hora="hora" :lugar="lugaresSeleccionados.join(', ')"
@@ -188,7 +178,7 @@ const onFileChange = (type, event) => {
 </script>
 
 
-<style scoped>
+<style>
 .pantalla{
   display: flex;
   gap: 30px;
@@ -206,11 +196,11 @@ const onFileChange = (type, event) => {
 }
 .contenedorFilas{
   margin: 20px;
-  width: 80%;
+  width: 70%;
   min-width: 320px;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
+  tr:nth-child(odd){
+    background-color: rgb(252, 221, 220);
+  }
 }
 .contenedorFechas{
   display: flex;
@@ -280,10 +270,6 @@ textarea{
 
 .detalles-label{
   visibility:hidden;
-}
-
-div tr:nth-child(odd){
-  background-color: rgb(252, 221, 220);
 }
 
 </style>

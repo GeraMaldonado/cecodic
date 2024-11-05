@@ -33,12 +33,13 @@
           profesional, aire acondicionado. Cuenta con muros móviles que transforman el espacio hasta en cuatro aulas
           individuales según las necesidades del evento.</p><br>
 
-        <p style="text-align: justify;"><strong>Aulas de usos múltiples</strong><br><br>
-        <ul>
-          <li>58 mts2, capacidad hasta 30 personas en auditorio, equipadas con pantalla, proyector, mesas trapezoidales
-            y sillas acojinadas en color negro.</li>
-        </ul>
-        </p><br>
+          <p style="text-align: justify;"><strong>Aulas de usos múltiples</strong><br><br></p>
+<div style="text-align: justify;">
+  <ul>
+    <li>58 mts2, capacidad hasta 30 personas en auditorio, equipadas con pantalla, proyector, mesas trapezoidales y sillas acojinadas en color negro.</li>
+  </ul>
+</div>
+        
       </div>
       <div v-else-if="activeTab === 1">
         <h2>Equipo</h2>

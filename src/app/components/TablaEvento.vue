@@ -1,11 +1,12 @@
 <template>
-  <table class="eventoInformacion">
-    <div class="contenidoTabla">
+  <div class="pantalla">
+  <table class="contenedorTabla">
+    <tbody class="contenedorFilas">
       <tr>
-        <td class="columnaTitulo">
-          <h3>Titulo: </h3>
+        <td class="columnaEtiqueta">
+          <h3>Evento: </h3>
         </td>
-        <td class="columnaContenido">
+        <td class="columnaInformacion">
           <div class="tituloImagenWrapper">
             <p class="titulo">{{ titulo }}</p>
             <img v-if="img" :src="rutaArchivo(img)" alt="Imagen del Evento" class="eventoImagen" />
@@ -13,18 +14,18 @@
         </td>
       </tr>
       <tr>
-        <td class="columnaTitulo">
+        <td class="columnaEtiqueta">
           <h3>Institución: </h3>
         </td>
-        <td class="columnaContenido">
+        <td class="columnaInformacion">
           <p class="institucion">{{ institucion }}</p>
         </td>
       </tr>
     <tr>
-      <td class="columnaTitulo">
+      <td class="columnaEtiqueta">
         <h3>Fecha: </h3>
       </td>
-      <td class="columnaContenido">
+      <td class="columnaInformacion">
         <p class="fechaLugar">
           <span v-if="fechaFin">del {{ fechaLarga(fecha) }} <br> al {{ fechaLarga(fechaFin) }}</span>
           <span v-else>{{ fechaLarga(fecha) }}</span>
@@ -32,40 +33,48 @@
       </td>
     </tr>
 
-
       <tr>
-        <td class="columnaTitulo">
+        <td class="columnaEtiqueta">
           <h3>Hora: </h3>
         </td>
-        <td class="columnaContenido">
+        <td class="columnaInformacion">
           <p class="fechaLugar">{{ hora.substring(0, 5) }} hrs</p>
         </td>
       </tr>
       <tr>
-        <td class="columnaTitulo">
+        <td class="columnaEtiqueta">
           <h3>Lugar: </h3>
         </td>
-        <td class="columnaContenido">
+        <td class="columnaInformacion">
           <p class="fechaLugar">{{ lugar }}</p>
         </td>
       </tr>
+
       <tr>
-        <td class="columnaTitulo">
+        <td class="columnaEtiqueta">
+          <h3>Tipo de evento: </h3>
+        </td>
+        <td class="columnaInformacion">
+          <p class="fechaLugar">{{ tipoEvento }}</p>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="columnaEtiqueta">
           <h3>Detalles: </h3>
         </td>
-        <div class="borde">
-          <td class="columnaContenido">
+          <td class="columnaInformacion">
             <p class="detalles">{{ detalles }}</p>
           </td>
-        </div>
       </tr>
       <tr v-if="pdf">
         <td class="centrar" colspan="2">
           <a :href="rutaArchivo(pdf)" target="_blank">Descargar PDF</a>
         </td>
       </tr>
-    </div>
+    </tbody>
   </table>
+</div>
 </template>
 
 
@@ -84,13 +93,24 @@ const props = defineProps({
   detalles: String,
   img: String,
   pdf: String,
-  fechaFin: String
+  fechaFin: String,
+  tipoEvento: String
 });
 
 const rutaArchivo = (nombre) => `${urlUpload}/${nombre}`
 </script>
 
+<style>
+.detalles {
+  font-size: 18px;
+  line-height: 1.5;
 
+  white-space: pre-line;
+  background-color: red;
+  padding: 10px;
+  border-radius: 20px;
+}</style>
+<!--
 <style scoped>
 .eventoInformacion {
   width: 100%;
@@ -177,4 +197,4 @@ const rutaArchivo = (nombre) => `${urlUpload}/${nombre}`
   text-align: center;
   vertical-align: middle;
 }
-</style>
+</style>-->

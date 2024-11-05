@@ -1,84 +1,89 @@
 <template>
-  <div v-if="evento">
-    <table class="eventoInformacion">
-      <div class="contenidoTabla">
-        <tr>
-          <td class="columnaTitulo"><label for="titulo">Titulo:</label></td>
-          <td class="columnaContenido"><input type="text" id="titulo" name="titulo" v-model="evento.titulo" /></td>
-        </tr>
-        <tr>
-          <td class="columnaTitulo"><label for="institucion">Institución:</label></td>
-          <td class="columnaContenido"><input type="text" id="institucion" name="institucion"
-              v-model="evento.institucion" /></td>
-        </tr>
-        <tr>
-          <td class="columnaTitulo"><label for="fecha">Fecha:</label></td>
-          <td class="columnaContenido"><input type="date" id="fecha" name="fecha" v-model="evento.fecha"
-              class="pequeno" /></td>
-        </tr>
-
-
-        <tr>
-          <td class="columnaTitulo"><label for="fechaFin">Fecha Fin:</label></td>
-          <td class="columnaContenido">
-            <input type="checkbox" id="toggleFechaFin" v-model="usarFechaFin" />
-            <input type="date" id="fechaFin" name="fechaFin" v-model="evento.fechaFin" class="pequeno" :disabled="!usarFechaFin" />
-          </td>
-        </tr>
-
-
-
-
-        <tr>
-          <td class="columnaTitulo"><label for="hora">Hora:</label></td>
-          <td class="columnaContenido"><input type="time" id="hora" name="hora" v-model="evento.hora" class="pequeno" />
-          </td>
-        </tr>
-
-        <tr>
-          <td class="columnaTitulo"><label for="lugar">Lugar:</label></td>
-          <td class="columnaContenido">
+  <div v-if="evento" class="pantalla">
+    <table class="contenedorTabla">
+      <tbody class="contenedorFilas">
+        
+          <tr>
+            <td class="columnaEtiqueta"><label for="titulo">Evento:</label></td>
+            <td class="columnaInformacion"><input type="text" id="titulo" name="titulo" v-model="evento.titulo" /></td>
+          </tr>
+          <tr>
+            <td class="columnaEtiqueta"evento.><label for="institucion">Institución:</label></td>
+            <td class="columnaInformacion"><input type="text" id="institucion" name="institucion" v-model="evento.institucion" />
+            </td>
+          </tr>
+          <tr>
+            <td><div class="columnaEtiqueta"><label for="fecha">Fecha:</label></div></td>
+            <td class="contenedorFechas columnaInformacion">
+              <div class="contenedorFecha"><input type="date" id="fecha" name="fecha" v-model="evento.fecha" /></div>
+              <div class="contenedorFecha">
+                <div><label for="fechaFin">Fecha de finalización: </label></div>
+                <div><input type="date" id="fechaFin" name="fechaFin" v-model="evento.fechaFin" :disabled="!usarFechaFin" /></div>
+              </div>
+            </td>        
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <input type="checkbox" id="toggleFechaFin" v-model="usarFechaFin" />
+              <label for="toggleFechaFin">¿Agregar fecha de finalización?</label>
+            </td>
+          </tr>
+          <tr>
+            <td class="columnaEtiqueta"><label for="hora">Hora:</label></td>
+            <td><input type="time" id="hora" name="hora" v-model="evento.hora" /></td>
+          </tr>
+          <tr>
+            <td class="columnaEtiqueta"><label for="lugar">Lugar:</label></td>
+            <td>
+              <div class="contenedorLugar">
+                <label><input type="checkbox" value="Auditorio" v-model="lugaresSeleccionados" /> Auditorio</label>
+                <label><input type="checkbox" value="Aula Magna" v-model="lugaresSeleccionados" /> Aula Magna</label>
+                <label><input type="checkbox" value="Aulas de usos múltiples" v-model="lugaresSeleccionados" /> Aulas de usos múltiples</label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+          <td class="columnaEtiqueta"><label>Tipo de evento:</label></td>
+          <td class="contenedorEvento">
             <div>
-              <label><input type="checkbox" value="Auditorio" v-model="lugaresSeleccionados" /> Auditorio</label>
-              <label><input type="checkbox" value="Aula Magna" v-model="lugaresSeleccionados" /> Aula Magna</label>
-              <label><input type="checkbox" value="Aulas de usos múltiples" v-model="lugaresSeleccionados" /> Aulas de usos múltiples</label>
+              <input type="radio" id="privado" value="privado" v-model="evento.tipoEvento" />
+              <label for="privado">Privado</label>
+            </div>
+            <div>
+              <input type="radio" id="publico" value="publico" v-model="evento.tipoEvento" />
+              <label for="publico">Público</label>
             </div>
           </td>
         </tr>
-
+      <tr>
+          <td class="columnaEtiqueta"><label for="detalles">Detalles:</label></td>
+          <td class="columnaInformacion">
+            <div class="contenedorDetalles">
+              <label for="detalles" class="detalles-label">.</label>
+              <textarea id="detalles" name="detalles" v-model="evento.detalles"></textarea>
+            </div>
+          </td>
+        </tr>
         <tr>
-          <td class="columnaTitulo"><label for="estatus">Estatus:</label></td>
-          <td class="columnaContenido">
-            <select id="estatus" name="estatus" v-model="evento.estatus">
+          <td class="columnaEtiqueta"><label for="imagen">Imagen:</label></td>
+          <td class="columnaContenido"><input type="file" id="imagen" @change="onFileChange('img', $event)" accept=".jpg, .jpeg, .png, .gif, .svg, .webp, .bmp" class="input-file" /></td>
+        </tr>
+        <tr>
+          <td class="columnaEtiqueta"><label for="pdf">PDF:</label></td>
+          <td class="columnaContenido"><input type="file" id="pdf" @change="onFileChange('pdf', $event)" accept=".pdf" class="input-file" /></td>
+        </tr>
+        <tr>
+          <td class="columnaEtiqueta"><label for="estatus">Estatus:</label></td>
+          <td>
+            <select id="estatus" name="estatus" v-model="estatus">
               <option value="pendiente">Pendiente</option>
               <option value="aceptado">Aceptado</option>
             </select>
           </td>
         </tr>
-        <tr>
-          <td class="columnaTitulo"><label for="tipoEvento">Tipo de Evento:</label></td>
-          <td class="columnaContenido">
-            <label><input type="radio" value="privado" v-model="evento.tipoEvento" /> Privado</label>
-            <label><input type="radio" value="publico" v-model="evento.tipoEvento" /> Público</label>
-          </td>
-        </tr>
-
-        <tr>
-          <td class="columnaTitulo"><label for="detalles">Detalles:</label></td>
-          <div class="borde">
-            <td class="columnaContenido"><textarea id="detalles" name="detalles" v-model="evento.detalles"></textarea>
-            </td>
-          </div>
-        </tr>
-        <tr>
-          <td class="columnaTitulo"><label for="imagen">Imagen:</label></td>
-          <td class="columnaContenido"><input type="file" id="imagen" @change="onFileChange('img', $event)" /></td>
-        </tr>
-        <tr>
-          <td class="columnaTitulo"><label for="pdf">PDF:</label></td>
-          <td class="columnaContenido"><input type="file" id="pdf" @change="onFileChange('pdf', $event)" /></td>
-        </tr>
-      </div>
+        
+      </tbody>
     </table><br>
     <div class="boton-container">
       <BotonConfirmar :idEvento="evento.ideventos" :titulo="evento.titulo" :institucion="evento.institucion"
@@ -136,95 +141,3 @@ onMounted(async () => {
 
 });
 </script>
-
-<style scoped>
-.eventoInformacion {
-  min-width: 600px;
-  width: 100%;
-  height: 800px;
-  padding: 2% 50px 5% 15%;
-  background-color: rgb(250, 211, 210);
-  border-radius: 7%;
-}
-
-.eventoInformacion tr {
-  height: 50px;
-}
-
-.columnaTitulo {
-  text-align: right;
-  font-size: 18px;
-  vertical-align: top;
-}
-
-.columnaTitulo label {
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.columnaContenido {
-  padding-left: 5%;
-  text-align: left;
-  width: 100%;
-}
-
-.columnaContenido input {
-  font-size: 18px;
-  font-weight: 400;
-  width: 100%;
-  height: 30px;
-  border: none;
-  background-color: rgb(246, 246, 246);
-}
-
-.columnaContenido input.pequeno {
-  width: auto;
-  max-width: 200px;
-}
-
-.titulo {
-  font-size: 25px;
-  font-weight: 600;
-}
-
-.institucion {
-  font-size: 25px;
-  font-weight: 600;
-}
-
-.fechaLugar {
-  font-size: 19px;
-  font-weight: 500;
-}
-
-.borde {
-  background-color: rgb(246, 246, 246);
-  border-radius: 7%;
-  max-height: 600px;
-  min-height: 400px;
-  overflow: auto;
-  padding: 0 5px;
-}
-
-.detalles {
-  font-size: 18px;
-  line-height: 2;
-  text-align: justify;
-  height: 500px;
-}
-
-textarea {
-  width: 440%;
-  height: 400px;
-  margin: 10px 0;
-  resize: none;
-  background-color: rgb(246, 246, 246);
-  border-radius: 2%;
-}
-
-.boton-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-</style>

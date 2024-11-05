@@ -5,14 +5,16 @@
     <div class="formulario">
       <form class="login" @submit.prevent="login">
         <table>
-          <tr>
-            <td class="columnaSesion"><label for="usuario"><i class="fas fa-user fa-xl"></i></label></td>
-            <td class="columnaIngreso"><input type="text" name="usuario" v-model="usuario"> <br></td>
-          </tr>
-          <tr>
-            <td class="columnaSesion"><label for="contrasena"><i class="fas fa-key fa-xl"></i></label></td>
-            <td class="columnaIngreso"><input type="password" name="contrasena" v-model="contrasena"><br><br></td>
-          </tr>
+          <tbody>
+            <tr>
+              <td class="columnaSesion"><label for="usuario"><i class="fas fa-user fa-xl"></i></label></td>
+              <td class="columnaIngreso"><input type="text" name="usuario" v-model="usuario"> <br></td>
+            </tr>
+            <tr>
+              <td class="columnaSesion"><label for="contrasena"><i class="fas fa-key fa-xl"></i></label></td>
+              <td class="columnaIngreso"><input type="password" name="contrasena" v-model="contrasena"><br><br></td>
+            </tr>
+          </tbody>
         </table>
         <div class="botones"><button class="btn-acceder" type="submit"> Acceder</button></div>
       </form>

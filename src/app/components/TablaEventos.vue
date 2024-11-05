@@ -56,12 +56,8 @@
           <td class="columnaFecha">{{ evento.fechaFin ? `Del ${fechaCortaMes(evento)} al ${fechaCortaMes({ fecha: evento.fechaFin })}` : fechaCortaMes(evento) }}<br>{{ evento.hora.substring(0, 5) }} hrs</td>
           <td class="columnaLugar">{{ evento.lugar }}</td>
           <td v-if="admin">
-          <td>
             <BotonEditar :idEvento="evento.ideventos" />
-          </td>
-          <td>
             <BotonEliminar :eventoId="evento.ideventos" />
-          </td>
           </td>
         </tr>
       </tbody>
