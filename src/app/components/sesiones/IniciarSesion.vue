@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!admin" class="contenedorAdmin">
+  <div class="contenedorAdmin">
     <img class="logoAdmin" src="@/assets/Picture2.png"
       alt="Logo del Centro de Comunicación y Divulgación de la Ciencia “Galileo Galilei”">
     <div class="formulario">
@@ -29,12 +29,7 @@ import { url } from '../utils';
 
 const usuario = ref('');
 const contrasena = ref('');
-const admin = ref(false);
 const router = useRouter();
-
-onMounted(() => {
-  admin.value = localStorage.getItem('credencial') !== null;
-});
 
 const login = async () => {
   try {
@@ -69,23 +64,22 @@ const login = async () => {
 .contenedorAdmin {
   display: flex;
   flex-direction: column;
-  margin-top: 50px;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   height: 100vh;
+  min-height: 350px;
 }
 
 .logoAdmin {
-  width: 200px;
+  width: 180px;
   margin-bottom: 20px;
 }
 
 .formulario {
-  width: 450px;
-  height: 350px;
+  width: 390px;
+  height: 200px;
   background-color: rgb(246, 210, 208);
-  border-radius: 5%;
-  padding: 20px;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -102,14 +96,14 @@ const login = async () => {
   color: white;
   height: 40px;
   width: 100px;
-  border-radius: 10%;
+  border-radius: 15px;
   border: none;
 }
 
 .columnaIngreso input {
   height: 40px;
   width: 300px;
-  border-radius: 4%;
+  border-radius: 10px;
   border: 2px solid #781005;
   background-color: #F6F6F6;
 }
