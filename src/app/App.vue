@@ -26,8 +26,6 @@ import VistaAdmin from './components/sesiones/VistaAdmin.vue';
 <style>
 * {
   box-sizing: border-box;
-/*  position: relative;
-  min-width: 0; */
   font-family: 'Jost Variable', sans-serif;
 }
 
@@ -35,7 +33,7 @@ body {
   min-height: 80dvh;
   background-color: #F6F6F6;
   scrollbar-color: rgb(248, 179, 179) rgba(0, 0, 0, 0);
-  scrollbar-width: thin;
+  scrollbar-width: none;
 }
 
 h1,
@@ -52,6 +50,6 @@ p {
 header,
 footer,
 body {
-  min-width: 100px;
+  min-width: 400px;
 }
 </style>
