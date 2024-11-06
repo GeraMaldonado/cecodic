@@ -223,7 +223,7 @@ const obtenerPeriodoSeleccionado = async () => {
 
 .tablaEventos {
   width: 88vw;
-  margin-bottom: 400px;
+  margin-bottom: 100px;
 }
 
 .tablaEventos th {
