@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="pantalla">
     <table class="tablaEventos">
       <thead>
         <tr>
           <th>Nombre del evento</th>
           <th>Institución</th>
-          <th>Resumen</th>
+          <th class="resumen">Resumen</th>
           <th>Fecha y Hora</th>
           <th>Lugar</th>
           <th>Estatus</th>
@@ -42,7 +42,6 @@ import BotonEliminar from './buttons/BotonEliminar.vue';
 import BotonAceptarEvento from './buttons/BotonAceptarEvento.vue';
 import { fechaCortaMes, fechaConsulta, acortadorString } from './utils';
 import { getEventosPendientes } from '@/components/queries/queries';
-import { fechaRangoMes, fechaRangoSemana } from './eventosUtils';
 
 const eventosPendientes = ref([]);
 const admin = localStorage.getItem('credencial');
@@ -55,7 +54,7 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.tablaEventos {
+/*.tablaEventos {
   margin: 5% 10%;
 }
 
@@ -172,5 +171,6 @@ onMounted(async () => {
 
 .navegacionFecha button:hover {
   background-color: rgb(255, 197, 195);
-}
+}*/
+
 </style>
