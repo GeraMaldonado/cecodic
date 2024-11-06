@@ -1,7 +1,9 @@
 <template>
   <button class="boton" @click="confirmarEvento">
-    <i class="fa-solid fa-floppy-disk fa-2xl" style="color: #63E6BE;"></i>
-    <span>Guardar</span>
+    <div class="boton-content">
+      <i class="fa-solid fa-floppy-disk fa-2xl" style="color: #63E6BE;"></i>
+      <p>Guardar</p>
+    </div>
   </button>
 </template>
 
@@ -58,7 +60,7 @@ const confirmarEvento = async () => {
 </script>
 
 <style scoped>
-.boton {
+/*.boton {
   border: none;
   transition: transform 0.3s ease;
   background: transparent;
@@ -77,5 +79,5 @@ const confirmarEvento = async () => {
 
 .boton i {
   margin-bottom: 25px;
-}
+}*/
 </style>

@@ -1,7 +1,9 @@
 <template>
   <button class="boton" @click="verEventosPendientes">
-    <i class="fa-solid fa-floppy-disk fa-2xl" style="color: red;"></i>
-    <span>{{ cantidadPendientes }}</span>
+    <div class="boton-content">
+      <i class="fa-solid fa-floppy-disk fa-2xl" style="color: red;"></i>
+      <p>Pendientes: <span>{{ cantidadPendientes }}</span></p>
+    </div>
   </button>
 </template>
 
@@ -36,24 +38,5 @@ const verEventosPendientes = () => {
 </script>
 
 <style scoped>
-.boton {
-  border: none;
-  transition: transform 0.3s ease;
-  background: transparent;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-  font-size: 18px;
-  font-weight: bold;
-  color: #63E6BE;
-}
 
-.boton:hover {
-  transform: scale(1.1);
-}
-
-.boton i {
-  margin-bottom: 25px;
-}
 </style>

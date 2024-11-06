@@ -1,7 +1,9 @@
 <template>
   <button class="boton" @click="aceptarEventos">
-    <i class="fa-solid fa-floppy-disk fa-2xl" style="color: red;"></i>
-    <span>Aceptar</span>
+    <div class="boton-content">
+      <i class="fa-solid fa-floppy-disk fa-2xl" style="color: red;"></i>
+      <p>Aceptar</p>
+    </div>
   </button>
 </template>
 
@@ -30,24 +32,32 @@ const aceptarEventos = async () => {
 </script>
 
 <style scoped>
-.boton {
+
+
+/*
+.contenedorBoton{
   border: none;
-  transition: transform 0.3s ease;
   background: transparent;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 10px;
+  transition: transform 0.3s ease;  
+}
+.contenedorBoton:hover {
+  transform: scale(1.1);
+}
+
+.contenedorBoton i {
+  margin-bottom: 10px;
+}
+.boton {
   font-size: 18px;
   font-weight: bold;
   color: #63E6BE;
 }
 
-.boton:hover {
-  transform: scale(1.1);
-}
 
-.boton i {
-  margin-bottom: 25px;
-}
+
+*/
 </style>
