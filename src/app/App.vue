@@ -24,6 +24,9 @@ import VistaAdmin from './components/sesiones/VistaAdmin.vue';
 </template>
 
 <style>
+@import url('./assets/styles/tablasEventos.css');
+@import url('./assets/styles/botones.css');
+
 * {
   box-sizing: border-box;
   font-family: 'Jost Variable', sans-serif;
@@ -36,10 +39,7 @@ body {
   scrollbar-width: none;
 }
 
-h1,
-h2,
-h3,
-h4 {
+h1, h2, h3, h4 {
   text-wrap: balance;
 }
 
@@ -47,9 +47,7 @@ p {
   text-wrap: pretty;
 }
 
-header,
-footer,
-body {
+header, footer, body {
   min-width: 400px;
 }
 </style>
