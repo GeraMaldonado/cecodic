@@ -1,10 +1,12 @@
 <template>
   <div class="contenedorAdministrador" v-if="admin">
     <div class="header">
-      <h1 class="textoAdministrador">Administrador</h1>
-      <BotonNuevoEvento class="botonNuevoEvento" />
-      <IconoEventosPendientes></IconoEventosPendientes>
-      <CerrarSesion class="botonCerrarSesion" />
+      <div class="contenedorBotones">
+        <h1 class="textoAdministrador">Administrador</h1>
+        <BotonNuevoEvento class="botonNuevoEvento" />
+        <IconoEventosPendientes></IconoEventosPendientes>
+     </div>
+    <CerrarSesion class="botonCerrarSesion" />
     </div>
   </div>
 </template>
@@ -17,26 +19,25 @@ const admin = (localStorage.getItem('credencial'));
 </script>
 
 <style scoped>
-/*
 .contenedorAdministrador {
   padding: 20px;
+  min-width: 320px;
 }
-
-.header {
+.header, .contenedorBotones{
   display: flex;
+  flex-direction: row;
+  gap: 20px;
   align-items: center;
-  margin-bottom: 20px;
 }
-
-.textoAdministrador {
-  margin: 0;
+.header{
+  align-items: start;
 }
-
-.botonNuevoEvento {
-  margin-left: 20px;
+.contenedorBotones{
+  width: 80%;
+  flex-wrap: wrap;
 }
 
 .botonCerrarSesion {
   margin-left: auto;
-}*/
+}
 </style>
