@@ -76,7 +76,7 @@
         <tr>
           <td class="columnaEtiqueta"><label for="estatus">Estatus:</label></td>
           <td>
-            <select id="estatus" name="estatus" v-model="estatus">
+            <select id="estatus" name="estatus" v-model="evento.estatus">
               <option value="pendiente">Pendiente</option>
               <option value="aceptado">Aceptado</option>
             </select>
