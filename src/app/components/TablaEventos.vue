@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pantalla">
     <div class="filtros">
       <div class="filtroInstitucion">
         <p>Institución: </p>
@@ -10,7 +10,6 @@
           </option>
         </select>
       </div>
-
       <div class="filtrofechas">
         <div class="contenedorFiltroFecha">
           <div class="filtroFecha">
@@ -21,9 +20,10 @@
             </select>
           </div>
         </div>
-
-        <VueDatePicker v-model="monthPickerValue" month-picker v-if="periodo === 'mes'" @update:modelValue="onDatePickerChange"/>
-
+        <div class="calendario">
+          <VueDatePicker v-model="monthPickerValue" month-picker v-if="periodo === 'mes'"
+            @update:modelValue="onDatePickerChange" />
+        </div>
         <div class="navegacionFecha">
           <button @click="retrocederSemana" v-if="periodo === 'semana'">Semana Anterior</button>
           <button @click="avanzarSemana" v-if="periodo === 'semana'">Semana Siguiente</button>
@@ -38,7 +38,8 @@
         <tr>
           <th>Nombre del evento</th>
           <th>Institución</th>
-          <th>Resumen</th>
+          <th>Evento</th>
+          <th class="resumen">Resumen</th>
           <th>Fecha y Hora</th>
           <th>Lugar</th>
           <th v-if="admin">Acciones</th>
@@ -52,12 +53,18 @@
             </router-link>
           </td>
           <td class="columnaInstitucion">{{ acortadorString(evento.institucion, 30) }}</td>
+          <td>{{ evento.tipoEvento }}</td>
           <td class="columnaResumen">{{ acortadorString(evento.detalles, 100) }}</td>
-          <td class="columnaFecha">{{ evento.fechaFin ? `Del ${fechaCortaMes(evento)} al ${fechaCortaMes({ fecha: evento.fechaFin })}` : fechaCortaMes(evento) }}<br>{{ evento.hora.substring(0, 5) }} hrs</td>
+          <td class="columnaFecha">{{ evento.fechaFin ? `Del ${fechaCortaMes(evento)} al ${fechaCortaMes({
+            fecha:
+              evento.fechaFin
+          })}` : fechaCortaMes(evento) }}<br>{{ evento.hora.substring(0, 5) }} hrs</td>
           <td class="columnaLugar">{{ evento.lugar }}</td>
-          <td v-if="admin">
-            <BotonEditar :idEvento="evento.ideventos" />
-            <BotonEliminar :eventoId="evento.ideventos" />
+          <td v-if="admin" class="columnaAcciones">
+            <div class=botonAccion>
+              <BotonEditar :idEvento="evento.ideventos" />
+              <BotonEliminar :eventoId="evento.ideventos" />
+            </div>
           </td>
         </tr>
       </tbody>
@@ -167,9 +174,56 @@ const obtenerPeriodoSeleccionado = async () => {
 };
 </script>
 
-<style scoped>
+<style >
+.filtros {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+}
+
+.filtroInstitucion {
+  min-width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filtrofechas {
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  .filtroFecha {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  button, .calendario {
+    width: 125px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}
+.navegacionFecha button{
+  background-color: rgb(248, 223, 222);
+  border: 1px solid rgb(245, 198, 196);
+  border-radius: 10px;
+
+}
+
+.filtros p {
+  font-size: 20px;
+  font-weight: 500;
+}
+
 .tablaEventos {
-  margin: 5% 10%;
+  width: 88vw;
+  margin-bottom: 400px;
 }
 
 .tablaEventos th {
@@ -186,27 +240,19 @@ const obtenerPeriodoSeleccionado = async () => {
   background-color: rgb(247, 185, 183);
 }
 
-.tablaEventos td {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  margin-left: 15px;
-}
-
 .columnaTitulo {
   width: 20%;
-  padding-left: 1%;
-  padding-right: 1%;
-}
-
-.columnaTitulo a {
-  text-decoration: none;
-  color: black;
-  font-size: 16px;
-  font-weight: 700;
-}
-
-.columnaTitulo a:hover {
-  text-decoration: underline;
+  padding: 2% 1%;
+  overflow: hidden;
+  a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
 }
 
 .columnaInstitucion {
@@ -215,75 +261,32 @@ const obtenerPeriodoSeleccionado = async () => {
   font-size: 14px;
   font-weight: 700;
   text-align: center;
+  overflow: hidden;
 }
 
-.columnaResumen {
-  width: 25%;
-}
-
-.columnaFecha,
-.columnaLugar {
+.columnaFecha, .columnaLugar {
   width: 15%;
   font-size: 18px;
   text-align: center;
 }
 
-.filtros {
-  display: flex;
-  justify-content: center;
-  margin-bottom: -50px;
-  .filtrofechas{
+.columnaAcciones{
+  width: 10%;
+  .botonAccion{
     display: flex;
+    justify-content: center;
+    align-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
   }
 }
 
-.filtros p {
-  font-size: 20px;
-  font-weight: 500;
+.columnaResumen {
+  width: 25%;
 }
-
-.filtros .filtroInstitucion,
-.filtros .filtroFecha {
-  display: flex;
-  align-items: center;
-  margin-left: 100px;
-
-  select {
-    background-color: rgb(246, 246, 246);
+@media (max-width: 600px) {
+  .resumen, .columnaResumen{
+    display: none;
   }
-}
-
-@media (max-width: 850px){
-  .filtros{
-    display: block;
-    margin-bottom: 25px;
-    .filtrofechas{
-    display: flex;
-    }
-
-  }
-}
-
-.filtroInstitucion select {
-  width: 100px;
-}
-
-.navegacionFecha {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-.navegacionFecha button {
-  margin: 0 10px;
-  padding: 0px 5px;
-  font-size: 14px;
-  background-color: rgb(248, 223, 222);
-  border: 1px solid rgb(245, 198, 196);
-  border-radius: 10px;
-}
-
-.navegacionFecha button:hover {
-  background-color: rgb(255, 197, 195);
 }
 </style>
