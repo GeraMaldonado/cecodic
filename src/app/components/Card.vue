@@ -23,11 +23,11 @@ const props = defineProps({
 </script>
 
 <style scoped>
-.card {
+.card{
   background-color: rgb(246, 210, 208);
   height: 440px;
   width: 310px;
-  border-radius: 15%;
+  border-radius: 50px;
   padding: 5px 15px 5px 15px;
   text-align: center;
   align-items: center;
@@ -40,7 +40,6 @@ const props = defineProps({
   justify-content: center;
   position: relative;
 }
-
 .card-img {
   width: 120px;
   height: 120px;
@@ -53,7 +52,6 @@ const props = defineProps({
   left: -40px;
   overflow: hidden;
 }
-
 .contenedorTitulo {
   height: 130px;
   font-size: 14px;
@@ -68,10 +66,7 @@ const props = defineProps({
 .contenedorTitulo.with-img {
   margin-left: 80px;
 }
-
-
-.ubicacionCard,
-.horaCard {
+.ubicacionCard, .horaCard {
   margin-top: -15px;
   color: black;
   font-size: 15px;
