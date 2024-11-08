@@ -1,8 +1,10 @@
 <template>
   <div class="boton-container" v-if="admin">
-    <button class="boton" @click="confirmarEliminar">
-      <i class="fa-solid fa-eraser fa-2xl" style="color: #ff0000;"></i>
-      <span v-if="mostrarTexto">Eliminar</span>
+    <button class="boton botonTabla" @click="confirmarEliminar" title="Eliminar evento">
+      <div class="boton-content">
+        <i class="fa-solid fa-eraser fa-2xl" style="color: var(--icon-color4);"></i>
+        <p v-if="mostrarTexto">Eliminar</p>
+      </div>
     </button>
   </div>
 </template>
@@ -50,29 +52,7 @@ const eliminarEventoHandler = async () => {
 </script>
 
 <style scoped>
-.boton-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.boton {
-  border: none;
-  transition: transform 0.3s ease;
-  background: transparent;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.boton:hover {
-  transform: scale(1.1);
-}
-
-span {
-  margin-top: 25px;
-  font-size: 18px;
-  font-weight: bold;
-  color: #FF0000;
+p{
+  color: var(--icon-color4);
 }
 </style>

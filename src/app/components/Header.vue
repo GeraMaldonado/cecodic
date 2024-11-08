@@ -42,12 +42,12 @@
   width: 100%;
   height: 23%;
   bottom: 1%;
-  background-color: rgba(120, 16, 5, 0.80);
+  background-color: var(--color-navegador);
 }
 
 .monograma {
-  color: white;
-  font-size: 2.5vw;
+  color: var(--color-texto1);
+  font-size: clamp(11px ,2.5vw, 70px);
   font-weight: 500;
   margin-left: 2vh;
 }
@@ -59,10 +59,10 @@
 }
 
 .link {
-  color: white;
+  color: var(--color-texto1);
   cursor: pointer;
   text-decoration: none;
-  font-size: 2vw;
+  font-size: clamp(8px ,1.8vw, 70px);
   margin: 0 2vw;
   text-align: center;
 }
@@ -72,7 +72,7 @@
 }
 
 .link:nth-child(3) {
-  font-size: 1.8vw;
+  font-size: clamp(8px ,1.8vw, 70px);
   line-height: 1.2;
 }
 </style>

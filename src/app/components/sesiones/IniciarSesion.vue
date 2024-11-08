@@ -1,18 +1,20 @@
 <template>
-  <div v-if="!admin" class="contenedorAdmin">
+  <div class="contenedorAdmin">
     <img class="logoAdmin" src="@/assets/Picture2.png"
       alt="Logo del Centro de Comunicación y Divulgación de la Ciencia “Galileo Galilei”">
     <div class="formulario">
       <form class="login" @submit.prevent="login">
         <table>
-          <tr>
-            <td class="columnaSesion"><label for="usuario"><i class="fas fa-user fa-xl"></i></label></td>
-            <td class="columnaIngreso"><input type="text" name="usuario" v-model="usuario"> <br></td>
-          </tr>
-          <tr>
-            <td class="columnaSesion"><label for="contrasena"><i class="fas fa-key fa-xl"></i></label></td>
-            <td class="columnaIngreso"><input type="password" name="contrasena" v-model="contrasena"><br><br></td>
-          </tr>
+          <tbody>
+            <tr>
+              <td class="columnaSesion"><label for="usuario"><i class="fas fa-user fa-xl"></i></label></td>
+              <td class="columnaIngreso"><input type="text" name="usuario" v-model="usuario"> <br></td>
+            </tr>
+            <tr>
+              <td class="columnaSesion"><label for="contrasena"><i class="fas fa-key fa-xl"></i></label></td>
+              <td class="columnaIngreso"><input type="password" name="contrasena" v-model="contrasena"><br><br></td>
+            </tr>
+          </tbody>
         </table>
         <div class="botones"><button class="btn-acceder" type="submit"> Acceder</button></div>
       </form>
@@ -27,12 +29,7 @@ import { url } from '../utils';
 
 const usuario = ref('');
 const contrasena = ref('');
-const admin = ref(false);
 const router = useRouter();
-
-onMounted(() => {
-  admin.value = localStorage.getItem('credencial') !== null;
-});
 
 const login = async () => {
   try {
@@ -67,23 +64,22 @@ const login = async () => {
 .contenedorAdmin {
   display: flex;
   flex-direction: column;
-  margin-top: 50px;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   height: 100vh;
+  min-height: 350px;
 }
 
 .logoAdmin {
-  width: 200px;
+  width: 180px;
   margin-bottom: 20px;
 }
 
 .formulario {
-  width: 450px;
-  height: 350px;
-  background-color: rgb(246, 210, 208);
-  border-radius: 5%;
-  padding: 20px;
+  width: 390px;
+  height: 200px;
+  background-color: var(--color-base);
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -96,19 +92,19 @@ const login = async () => {
 }
 
 .btn-acceder {
-  background-color: #781005;
-  color: white;
+  background-color: var(--color-base-oscuro);
+  color: var(--color-texto1);
   height: 40px;
   width: 100px;
-  border-radius: 10%;
+  border-radius: 15px;
   border: none;
 }
 
 .columnaIngreso input {
   height: 40px;
   width: 300px;
-  border-radius: 4%;
-  border: 2px solid #781005;
-  background-color: #F6F6F6;
+  border-radius: 10px;
+  border: 2px solid var(--color-base-oscuro);
+  background-color: var(--color-background);
 }
 </style>

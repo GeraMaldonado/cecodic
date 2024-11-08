@@ -24,24 +24,23 @@ import VistaAdmin from './components/sesiones/VistaAdmin.vue';
 </template>
 
 <style>
+@import url('./assets/styles/tablasEventos.css');
+@import url('./assets/styles/botones.css');
+@import url('./assets/styles/styles.css');
+
 * {
   box-sizing: border-box;
-  position: relative;
-  min-width: 0;
   font-family: 'Jost Variable', sans-serif;
 }
 
 body {
   min-height: 80dvh;
-  background-color: #F6F6F6;
-  scrollbar-color: rgb(248, 179, 179) rgba(0, 0, 0, 0);
-  scrollbar-width: thin;
+  background-color: var(--color-background);
+  scrollbar-color: var(--color-secundario) rgba(0, 0, 0, 0);
+  scrollbar-width: none;
 }
 
-h1,
-h2,
-h3,
-h4 {
+h1, h2, h3, h4 {
   text-wrap: balance;
 }
 
@@ -49,9 +48,7 @@ p {
   text-wrap: pretty;
 }
 
-header,
-footer,
-body {
-  min-width: 100px;
+header, footer, body {
+  min-width: 400px;
 }
 </style>

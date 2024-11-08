@@ -1,8 +1,8 @@
 <template>
   <button class='boton' v-if="admin" @click="nuevoEvento">
     <div class="boton-content">
-      <i class="fa-solid fa-file fa-2xl" style="color: #74C0FC;"></i>
-      <span>Nuevo Evento</span>
+      <i class="fa-solid fa-file fa-2xl" style="color: var(--icon-color6);"></i>
+      <p>Nuevo Evento</p>
     </div>
   </button>
 </template>
@@ -21,29 +21,7 @@ const nuevoEvento = () => {
 </script>
 
 <style scoped>
-.boton {
-  border: none;
-  transition: transform 0.3s ease;
-  background: transparent;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.boton:hover {
-  transform: scale(1.1);
-}
-
-.boton-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.boton-content span {
-  margin-top: 25px;
-  font-size: 18px;
-  font-weight: bold;
-  color: #74C0FC;
+.boton-content p {
+  color: var(--icon-color6);
 }
 </style>

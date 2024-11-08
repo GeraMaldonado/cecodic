@@ -1,7 +1,9 @@
 <template>
-  <button class="boton" v-if="admin" @click="confirmarEvento">
-    <i class="fa-solid fa-floppy-disk fa-2xl" style="color: #63E6BE;"></i>
-    <span>Guardar</span>
+  <button class="boton" @click="confirmarEvento">
+    <div class="boton-content">
+      <i class="fa-solid fa-floppy-disk fa-2xl" style="color: var(--icon-color2);"></i>
+      <p>Guardar</p>
+    </div>
   </button>
 </template>
 
@@ -9,8 +11,7 @@
 import { useRouter } from 'vue-router';
 import { crearEvento, actualizarEvento, subirArchivo } from '../queries/queries';
 
-const admin = localStorage.getItem('credencial');
-const props = defineProps(['idEvento', 'titulo', 'institucion', 'fecha', 'hora', 'lugar', 'resumen', 'detalles', 'img', 'pdf']);
+const props = defineProps(['idEvento', 'titulo', 'institucion', 'fecha', 'hora', 'lugar', 'resumen', 'detalles', 'img', 'pdf', 'fechaFin', 'estatus', 'tipoEvento']);
 const router = useRouter();
 
 const confirmarEvento = async () => {
@@ -20,8 +21,10 @@ const confirmarEvento = async () => {
     fecha: props.fecha,
     hora: props.hora,
     lugar: props.lugar,
-    resumen: props.resumen,
-    detalles: props.detalles
+    detalles: props.detalles,
+    fechaFin: props.fechaFin,
+    tipoEvento: props.tipoEvento,
+    estatus: props.estatus
   };
 
   if (!evento.titulo || !evento.institucion || !evento.fecha || !evento.hora || !evento.lugar) {
@@ -57,24 +60,7 @@ const confirmarEvento = async () => {
 </script>
 
 <style scoped>
-.boton {
-  border: none;
-  transition: transform 0.3s ease;
-  background: transparent;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-  font-size: 18px;
-  font-weight: bold;
-  color: #63E6BE;
-}
-
-.boton:hover {
-  transform: scale(1.1);
-}
-
-.boton i {
-  margin-bottom: 25px;
+p{
+  color: var(--icon-color2);
 }
 </style>

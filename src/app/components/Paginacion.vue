@@ -58,13 +58,13 @@ const paginaSiguiente = () => {
 
 button {
   padding: 5px 10px;
-  background-color: rgb(248, 223, 222);
-  border: 1px solid rgb(245, 198, 196);
+  background-color: var( --color-boton-pagina);
+  border: 1px solid var(--color-secundario);
   border-radius: 10%;
 }
 
 button:hover {
-  background-color: rgb(255, 197, 195);
+  background-color: var(--color-secundario);
 }
 
 button.activo {

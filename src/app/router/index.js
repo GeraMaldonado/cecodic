@@ -4,9 +4,12 @@ import EventoIndividualView from '@/views/EventoIndividualView.vue'
 import EventoNuevoView from '@/views/EventoNuevoView.vue'
 import EditarEvento from '@/views/EditarEvento.vue'
 import AdminView from '@/views/AdminView.vue'
+import EventosViewPendientes from '../views/EventosViewPendientes.vue'
+
+const isAdmin = () => localStorage.getItem('credencial') !== null;
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL), // Cambiado a createWebHistory
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
@@ -31,7 +34,14 @@ const router = createRouter({
     {
       path: '/editevento/:id',
       name: 'editar-evento',
-      component: EditarEvento
+      component: EditarEvento,
+      beforeEnter: (to, from, next) => {
+        if (isAdmin()) {
+          next();
+        } else {
+          next({ name: 'home' });
+        }
+      }
     },
     {
       path: '/equipo',
@@ -41,7 +51,25 @@ const router = createRouter({
     {
       path: '/admin',
       name: 'admin',
-      component: AdminView
+      component: AdminView,
+      beforeEnter: (to, from, next) => {
+        if (!isAdmin()) {
+          next();
+        } else {
+          next({ name: 'home' });
+        }
+      }
+    },{
+      path: '/eventospendientes',
+      name: 'evento-pendientes',
+      component: EventosViewPendientes,
+      beforeEnter: (to, from, next) => {
+        if (isAdmin()) {
+          next();
+        } else {
+          next({ name: 'home' });
+        }
+      }
     }
   ],
   scrollBehavior(to, from, savedPosition) {

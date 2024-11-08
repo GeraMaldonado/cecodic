@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pantalla">
     <div class="filtros">
       <div class="filtroInstitucion">
         <p>Institución: </p>
@@ -10,7 +10,6 @@
           </option>
         </select>
       </div>
-
       <div class="filtrofechas">
         <div class="contenedorFiltroFecha">
           <div class="filtroFecha">
@@ -21,7 +20,11 @@
             </select>
           </div>
         </div>
-
+        <div class="calendario">
+          <VueDatePicker v-model="monthPickerValue" month-picker v-if="periodo === 'mes'"
+            @update:modelValue="onDatePickerChange" />
+            <div v-if="periodo === 'semana'"> {{ `${fechaCortaMes({fecha: (fechaRangoSemana(fechaActual)).substring(0,11)})} - ${fechaCortaMes({fecha: (fechaRangoSemana(fechaActual)).substring(10,21)})}`}} </div>  
+        </div>
         <div class="navegacionFecha">
           <button @click="retrocederSemana" v-if="periodo === 'semana'">Semana Anterior</button>
           <button @click="avanzarSemana" v-if="periodo === 'semana'">Semana Siguiente</button>
@@ -36,10 +39,11 @@
         <tr>
           <th>Nombre del evento</th>
           <th>Institución</th>
-          <th>Resumen</th>
+          <th>Evento</th>
+          <th class="resumen">Resumen</th>
           <th>Fecha y Hora</th>
           <th>Lugar</th>
-          <th v-if="admin">Acciones</th>
+          <th v-if="admin" class="columnaAcciones">Acciones</th>
         </tr>
       </thead>
       <tbody>
@@ -50,16 +54,15 @@
             </router-link>
           </td>
           <td class="columnaInstitucion">{{ acortadorString(evento.institucion, 30) }}</td>
+          <td class="columnaTipoEvento">{{ evento.tipoEvento === 'publico' ? 'Público' : 'Privado' }}</td>
           <td class="columnaResumen">{{ acortadorString(evento.detalles, 100) }}</td>
-          <td class="columnaFecha">{{ fechaCortaMes(evento) }}<br>{{ evento.hora.substring(0, 5) }} hrs</td>
+          <td class="columnaFecha">{{ evento.fechaFin ? `${fechaCortaMes(evento)} -\n${fechaCortaMes({fecha: evento.fechaFin})}` : fechaCortaMes(evento) }}<br>{{ evento.hora.substring(0, 5) }} hrs</td>
           <td class="columnaLugar">{{ evento.lugar }}</td>
-          <td v-if="admin">
-          <td>
-            <BotonEditar :idEvento="evento.ideventos" />
-          </td>
-          <td>
-            <BotonEliminar :eventoId="evento.ideventos" />
-          </td>
+          <td v-if="admin" class="columnaAcciones">
+            <div class=botonAccion>
+              <BotonEditar :idEvento="evento.ideventos" />
+              <BotonEliminar :eventoId="evento.ideventos" />
+            </div>
           </td>
         </tr>
       </tbody>
@@ -74,7 +77,7 @@ import { ref, onMounted, computed, watch } from 'vue';
 import BotonEditar from './buttons/BotonEditar.vue';
 import BotonEliminar from './buttons/BotonEliminar.vue';
 import Paginacion from './Paginacion.vue';
-import { fechaCortaMes, fechaConsulta, acortadorString } from './utils';
+import { fechaCortaMes, formatearFecha, acortadorString } from './utils';
 import { getEventos } from '@/components/queries/queries';
 import { fechaRangoMes, fechaRangoSemana } from './eventosUtils';
 
@@ -86,6 +89,10 @@ const eventosFiltrados = ref([]);
 const paginaActual = ref(1);
 const elementosPorPagina = 9;
 const fechaActual = ref(new Date());
+const monthPickerValue = ref({
+  month: fechaActual.value.getMonth(),
+  year: fechaActual.value.getFullYear()
+});
 
 const institucionesUnicas = computed(() => {
   const instituciones = new Set(eventos.value.map(evento => evento.institucion));
@@ -97,9 +104,17 @@ onMounted(async () => {
   filtrarPorInstitucion();
 });
 
-watch([periodo, fechaActual], () => {
-  obtenerPeriodoSeleccionado();
+watch(fechaActual, (newDate) => {
+  monthPickerValue.value = {
+    month: newDate.getMonth(),
+    year: newDate.getFullYear()
+  };
 });
+
+const onDatePickerChange = (value) => {
+  fechaActual.value = new Date(value.year, value.month);
+  obtenerPeriodoSeleccionado();
+}
 
 const eventosPaginados = computed(() => {
   const inicio = (paginaActual.value - 1) * elementosPorPagina;
@@ -113,6 +128,8 @@ const filtrarPorPeriodo = async () => {
 };
 
 const filtrarPorInstitucion = () => {
+  paginaActual.value = 1;
+
   if (institucionSeleccionada.value === 'todas') {
     eventosFiltrados.value = eventos.value;
   } else {
@@ -123,23 +140,23 @@ const filtrarPorInstitucion = () => {
 };
 
 const retrocederSemana = async () => {
-  fechaActual.value = new Date(fechaActual.value.setDate(fechaActual.value.getDate() - 7));
+  fechaActual.value.setDate(fechaActual.value.getDate() - 7);
   await obtenerPeriodoSeleccionado();
 };
 
 const avanzarSemana = async () => {
-  fechaActual.value = new Date(fechaActual.value.setDate(fechaActual.value.getDate() + 7));
+  fechaActual.value.setDate(fechaActual.value.getDate() + 7);
   await obtenerPeriodoSeleccionado();
 };
 
 const retrocederMes = async () => {
   fechaActual.value = new Date(fechaActual.value.setMonth(fechaActual.value.getMonth() - 1));
-  await obtenerPeriodoSeleccionado();
+  obtenerPeriodoSeleccionado();
 };
 
 const avanzarMes = async () => {
   fechaActual.value = new Date(fechaActual.value.setMonth(fechaActual.value.getMonth() + 1));
-  await obtenerPeriodoSeleccionado();
+  obtenerPeriodoSeleccionado();
 };
 
 const obtenerPeriodoSeleccionado = async () => {
@@ -158,122 +175,7 @@ const obtenerPeriodoSeleccionado = async () => {
 </script>
 
 <style scoped>
-.tablaEventos {
-  margin: 5% 10%;
-}
-
-.tablaEventos th {
-  color: white;
-  background-color: rgb(120, 16, 5);
-  text-align: center;
-}
-
-.tablaEventos tr:nth-child(odd) {
-  background-color: rgb(250, 211, 210);
-}
-
-.tablaEventos tr:nth-child(even) {
-  background-color: rgb(247, 185, 183);
-}
-
-.tablaEventos td {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  margin-left: 15px;
-}
-
-.columnaTitulo {
-  width: 20%;
-  padding-left: 1%;
-  padding-right: 1%;
-}
-
-.columnaTitulo a {
-  text-decoration: none;
-  color: black;
-  font-size: 16px;
-  font-weight: 700;
-}
-
-.columnaTitulo a:hover {
-  text-decoration: underline;
-}
-
-.columnaInstitucion {
-  width: 10%;
-  color: black;
-  font-size: 14px;
-  font-weight: 700;
-  text-align: center;
-}
-
-.columnaResumen {
-  width: 25%;
-}
-
-.columnaFecha,
-.columnaLugar {
-  width: 15%;
-  font-size: 18px;
-  text-align: center;
-}
-
-.filtros {
-  display: flex;
-  justify-content: center;
-  margin-bottom: -50px;
-  .filtrofechas{
-    display: flex;
-  }
-}
-
-.filtros p {
-  font-size: 20px;
-  font-weight: 500;
-}
-
-.filtros .filtroInstitucion,
-.filtros .filtroFecha {
-  display: flex;
-  align-items: center;
-  margin-left: 100px;
-
-  select {
-    background-color: rgb(246, 246, 246);
-  }
-}
-
-@media (max-width: 850px){
-  .filtros{
-    display: block;
-    margin-bottom: 25px;
-    .filtrofechas{
-    display: flex;
-    }
-
-  }
-}
-
-.filtroInstitucion select {
-  width: 100px;
-}
-
-.navegacionFecha {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-.navegacionFecha button {
-  margin: 0 10px;
-  padding: 0px 5px;
-  font-size: 14px;
-  background-color: rgb(248, 223, 222);
-  border: 1px solid rgb(245, 198, 196);
-  border-radius: 10px;
-}
-
-.navegacionFecha button:hover {
-  background-color: rgb(255, 197, 195);
+.BotonEditar{
+  font-size: 11px;
 }
 </style>

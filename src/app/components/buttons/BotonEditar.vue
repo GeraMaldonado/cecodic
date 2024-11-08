@@ -1,8 +1,10 @@
 <template>
   <div class="boton-container" v-if="admin">
-    <button class="boton" @click="editarEvento(idEvento)">
-      <i class="fas fa-pencil-alt fa-2xl" style="color: #00C413;"></i>
-      <span v-if="mostrarTexto">Editar</span>
+    <button class="boton botonTabla" @click="editarEvento(idEvento)" title="Editar evento">
+      <div class="boton-content">
+        <i class="fas fa-pencil-alt fa-2xl" style="color: var(--icon-color3);"></i>
+        <p v-if="mostrarTexto">Editar</p>
+      </div>
     </button>
   </div>
 </template>
@@ -28,29 +30,8 @@ const editarEvento = (id) => {
 </script>
 
 <style scoped>
-.boton-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
-.boton {
-  border: none;
-  transition: transform 0.3s ease;
-  background: transparent;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.boton:hover {
-  transform: scale(1.1);
-}
-
-span {
-  margin-top: 25px;
-  font-size: 18px;
-  font-weight: bold;
-  color: #00C413;
+p{
+  color: var(--icon-color3);
 }
 </style>

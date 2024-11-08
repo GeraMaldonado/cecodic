@@ -1,0 +1,27 @@
+:root {
+    /*Colores*/
+    --color-base: #f6d2d0;
+    --color-secundario: #efb5b2;
+    --color-background: #F6F6F6;
+    --color-black: #131313;
+    --color-texto1: white;
+    --color-base-oscuro: #712f2b;
+    --color-navegador: #781005cc;
+    --color-encabezado: #781105;
+    --color-boton-pagina: #fae7e6;
+    --color-odds-tabla: #fad3d2;
+    --color-even-tabla:  #f7b9b7;
+
+
+
+    /*Botones*/
+    --icon-size: 18px;
+    --icon-color1: #63E6BE;
+    --icon-color2: #63E6BE;
+    --icon-color3: #00C413;
+    --icon-color4: #ff0000;
+    --icon-color5: #3bff42;
+    --icon-color6: #74C0FC;
+    --icon-color7: #712f2b;
+
+}
