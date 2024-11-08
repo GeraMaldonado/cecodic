@@ -26,6 +26,7 @@ import VistaAdmin from './components/sesiones/VistaAdmin.vue';
 <style>
 @import url('./assets/styles/tablasEventos.css');
 @import url('./assets/styles/botones.css');
+@import url('./assets/styles/styles.css');
 
 * {
   box-sizing: border-box;
@@ -34,8 +35,8 @@ import VistaAdmin from './components/sesiones/VistaAdmin.vue';
 
 body {
   min-height: 80dvh;
-  background-color: #F6F6F6;
-  scrollbar-color: rgb(248, 179, 179) rgba(0, 0, 0, 0);
+  background-color: var(--color-background);
+  scrollbar-color: var(--color-secundario) rgba(0, 0, 0, 0);
   scrollbar-width: none;
 }
 
