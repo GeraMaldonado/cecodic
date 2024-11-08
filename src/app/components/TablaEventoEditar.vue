@@ -97,7 +97,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import BotonConfirmar from './buttons/BotonConfirmar.vue';
 import { getEvento } from './queries/queries';
@@ -118,9 +118,16 @@ const evento = ref({
 });
 const img = ref(null);
 const pdf = ref(null);
-
 const usarFechaFin = ref(!!evento.value.fechaFin);
 const lugaresSeleccionados = ref([]);
+
+
+watch([() => evento.value.fecha, () => evento.value.fechaFin], ([fecha, fechaFin]) => {
+  if (fecha && fechaFin && new Date(fechaFin) < new Date(fecha)) {
+    alert('La fecha de finalización no puede ser anterior a la fecha de inicio.');
+    evento.value.fechaFin = '';
+  }
+});
 
 const onFileChange = (type, event) => {
   const file = event.target.files[0];
@@ -138,6 +145,5 @@ onMounted(async () => {
   if (evento.value.lugar) {
     lugaresSeleccionados.value = evento.value.lugar.split(', ');
   }
-
 });
 </script>

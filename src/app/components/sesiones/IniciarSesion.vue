@@ -78,7 +78,7 @@ const login = async () => {
 .formulario {
   width: 390px;
   height: 200px;
-  background-color: rgb(246, 210, 208);
+  background-color: var(--color-base);
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -92,8 +92,8 @@ const login = async () => {
 }
 
 .btn-acceder {
-  background-color: #781005;
-  color: white;
+  background-color: var(--color-base-oscuro);
+  color: var(--color-texto1);
   height: 40px;
   width: 100px;
   border-radius: 15px;
@@ -104,7 +104,7 @@ const login = async () => {
   height: 40px;
   width: 300px;
   border-radius: 10px;
-  border: 2px solid #781005;
-  background-color: #F6F6F6;
+  border: 2px solid var(--color-base-oscuro);
+  background-color: var(--color-background);
 }
 </style>

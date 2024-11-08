@@ -1,80 +1,80 @@
 <template>
   <div class="pantalla">
-  <table class="contenedorTabla">
-    <tbody class="contenedorFilas">
-      <tr>
-        <td class="columnaEtiqueta">
-          <h3>Evento: </h3>
-        </td>
-        <td class="columnaInformacion">
-          <div class="tituloImagenWrapper">
-            <img v-if="img" :src="rutaArchivo(img)" alt="Imagen del Evento" class="eventoImagen" />
-            <p class="titulo">{{ titulo }}</p>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td class="columnaEtiqueta">
-          <h3>Institución: </h3>
-        </td>
-        <td class="columnaInformacion">
-          <p class="institucion">{{ institucion }}</p>
-        </td>
-      </tr>
-    <tr>
-      <td class="columnaEtiqueta">
-        <h3>Fecha: </h3>
-      </td>
-      <td class="columnaInformacion">
-        <p class="fechaLugar">
-          <span v-if="fechaFin">del {{ fechaLarga(fecha) }} <br> al {{ fechaLarga(fechaFin) }}</span>
-          <span v-else>{{ fechaLarga(fecha) }}</span>
-        </p>
-      </td>
-    </tr>
+    <table class="contenedorTabla">
+      <tbody class="contenedorFilas">
+        <tr>
+          <td class="columnaEtiqueta">
+            <h3>Evento: </h3>
+          </td>
+          <td class="columnaInformacion">
+            <div class="tituloImagenWrapper">
+              <img v-if="img" :src="rutaArchivo(img)" alt="Imagen del Evento" class="eventoImagen" />
+              <p :class="['titulo', { 'with-img': img }]">{{ titulo }}</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="columnaEtiqueta">
+            <h3>Institución: </h3>
+          </td>
+          <td class="columnaInformacion">
+            <p class="institucion">{{ institucion }}</p>
+          </td>
+        </tr>
+        <tr>
+          <td class="columnaEtiqueta">
+            <h3>Fecha: </h3>
+          </td>
+          <td class="columnaInformacion">
+            <p class="fechaLugar">
+              <span v-if="fechaFin">Del {{ fechaLarga(fecha) }}  al {{ fechaLarga(fechaFin) }} de {{fechaFin.substring(0,4)}}</span>
+              <span v-else>{{ fechaLarga(fecha) }}</span>
+            </p>
+          </td>
+        </tr>
 
-      <tr>
-        <td class="columnaEtiqueta">
-          <h3>Hora: </h3>
-        </td>
-        <td class="columnaInformacion">
-          <p class="fechaLugar">{{ hora.substring(0, 5) }} hrs</p>
-        </td>
-      </tr>
-      <tr>
-        <td class="columnaEtiqueta">
-          <h3>Lugar: </h3>
-        </td>
-        <td class="columnaInformacion">
-          <p class="fechaLugar">{{ lugar }}</p>
-        </td>
-      </tr>
+        <tr>
+          <td class="columnaEtiqueta">
+            <h3>Hora: </h3>
+          </td>
+          <td class="columnaInformacion">
+            <p class="fechaLugar">{{ hora.substring(0, 5) }} hrs</p>
+          </td>
+        </tr>
+        <tr>
+          <td class="columnaEtiqueta">
+            <h3>Lugar: </h3>
+          </td>
+          <td class="columnaInformacion">
+            <p class="fechaLugar">{{ lugar }}</p>
+          </td>
+        </tr>
 
-      <tr v-if="tipoEvento">
-        <td class="columnaEtiqueta">
-          <h3>Tipo de evento: </h3>
-        </td>
-        <td class="columnaInformacion">
-          <p class="fechaLugar">{{ tipoEvento }}</p>
-        </td>
-      </tr>
+        <tr v-if="tipoEvento">
+          <td class="columnaEtiqueta">
+            <h3>Tipo de evento: </h3>
+          </td>
+          <td class="columnaInformacion">
+            <p class="fechaLugar">{{ tipoEvento === 'publico' ? 'Público' : 'Privado' }}</p>
+          </td>
+        </tr>
 
-      <tr v-if="detalles">
-        <td class="columnaEtiqueta">
-          <h3>Detalles: </h3>
-        </td>
+        <tr v-if="detalles">
+          <td class="columnaEtiqueta">
+            <h3>Detalles: </h3>
+          </td>
           <td class="columnaInformacion">
             <p class="detalles">{{ detalles }}</p>
           </td>
-      </tr>
-      <tr v-if="pdf">
-        <td class="centrar" colspan="2">
-          <a :href="rutaArchivo(pdf)" target="_blank">Descargar PDF</a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+        </tr>
+        <tr class="pdf" v-if="pdf">
+          <td  colspan="2">
+            <a :href="rutaArchivo(pdf)" target="_blank">Descargar PDF</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 
@@ -103,34 +103,40 @@ const rutaArchivo = (nombre) => `${urlUpload}/${nombre}`
   font-size: 18px;
   line-height: 1.5;
   white-space: pre-line;
-  background-color: white;
+  background-color: var(--color-background);
   padding: 10px;
   border-radius: 20px;
 }
 
 .tituloImagenWrapper {
   position: relative;
-  padding-right: 80px;
+  display: flex;
+  align-items: center;
+
 }
 
-.tituloImagenWrapper.con-imagen .titulo {
-  margin-right: 220px;
-}
 
 .titulo {
   z-index: 1;
-  font-size: 24px;
+  font-size: 21px;
+  line-height: 1.2;
   font-weight: bold;
+  text-align: left;
+  margin: 0;
+}
+
+.titulo.with-img {
+  margin-right: 100px;
   text-align: left;
 }
 
 .eventoImagen {
   width: 250px;
   height: 250px;
-  object-fit: cover;  
+  object-fit: cover;
   border-radius: 50%;
-  border: 7px solid rgb(246, 246, 246);
-  background-color: rgb(246, 246, 246);
+  border: 7px solid var(--color-background);
+  background-color: var(--color-background);
   position: absolute;
   top: -100px;
   right: -180px;
@@ -141,6 +147,15 @@ const rutaArchivo = (nombre) => `${urlUpload}/${nombre}`
 .contenedorTabla {
   position: relative;
   overflow: visible;
+}
+
+.institucion, .fechaLugar, .pdf{
+  font-size: 19px;
+  line-height: 1.5;
+}
+.pdf{
+  display: flex;
+  justify-content: center;
 }
 
 @media (max-width: 900px) {
@@ -162,6 +177,10 @@ const rutaArchivo = (nombre) => `${urlUpload}/${nombre}`
     margin-right: 0;
     text-align: center;
   }
+  .titulo.with-img {
+  margin-right: 0;
+  text-align: left;
+}
 }
 
 @media (max-width: 740px) {
@@ -176,12 +195,11 @@ const rutaArchivo = (nombre) => `${urlUpload}/${nombre}`
     display: flex;
     justify-content: center;
   }
-  .columnaEtiqueta{
-    h3{
-      width: 100%;
-      text-align: center;
-    }
-  }
 
+  .columnaEtiqueta h3 {
+    width: 100%;
+    text-align: center;
+
+  }
 }
 </style>

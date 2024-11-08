@@ -1,8 +1,8 @@
 <template>
   <button class="boton" @click="confirmarEventoUsuario">
     <div class="boton-content">
-      <i class="fa-solid fa-floppy-disk fa-2xl" style="color: red;"></i>
-      <p>Guardar</p>
+      <i class="fa-solid fa-floppy-disk fa-2xl" style="color: var(--icon-color5);"></i>
+      <p>Enviar</p>
     </div>
   </button>
 </template>
@@ -58,7 +58,7 @@ const confirmarEventoUsuario = async () => {
 </script>
 
 <style scoped>
-.boton-content p {
-  color: #74C0FC;
+p {
+  color: var(--icon-color5);
 }
 </style>

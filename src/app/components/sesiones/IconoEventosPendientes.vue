@@ -1,7 +1,7 @@
 <template>
   <button class="boton" @click="verEventosPendientes">
     <div class="boton-content">
-      <i class="fa-solid fa-floppy-disk fa-2xl" style="color: red;"></i>
+      <i class="fa-solid fa-bell fa-2xl" style="color: var(--icon-color7);"></i>
       <p>Pendientes: <span>{{ cantidadPendientes }}</span></p>
     </div>
   </button>
@@ -38,5 +38,8 @@ const verEventosPendientes = () => {
 </script>
 
 <style scoped>
+p{
+  color: var(--icon-color7);
+}
 
 </style>

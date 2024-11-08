@@ -108,6 +108,7 @@ const activeTab = ref(0);
   padding: 20px;
   width: 70%;
   margin: 0 auto;
+  font-size: var(--size-texto);
 }
 
 .tabs {
@@ -145,6 +146,6 @@ h2 {
 
 p,
 li {
-  line-height: 1.5;
+  line-height: 1.7;
 }
 </style>

@@ -23,6 +23,7 @@
         <div class="calendario">
           <VueDatePicker v-model="monthPickerValue" month-picker v-if="periodo === 'mes'"
             @update:modelValue="onDatePickerChange" />
+            <div v-if="periodo === 'semana'"> {{ `${fechaCortaMes({fecha: (fechaRangoSemana(fechaActual)).substring(0,11)})} - ${fechaCortaMes({fecha: (fechaRangoSemana(fechaActual)).substring(10,21)})}`}} </div>  
         </div>
         <div class="navegacionFecha">
           <button @click="retrocederSemana" v-if="periodo === 'semana'">Semana Anterior</button>
@@ -42,7 +43,7 @@
           <th class="resumen">Resumen</th>
           <th>Fecha y Hora</th>
           <th>Lugar</th>
-          <th v-if="admin">Acciones</th>
+          <th v-if="admin" class="columnaAcciones">Acciones</th>
         </tr>
       </thead>
       <tbody>
@@ -53,12 +54,9 @@
             </router-link>
           </td>
           <td class="columnaInstitucion">{{ acortadorString(evento.institucion, 30) }}</td>
-          <td>{{ evento.tipoEvento }}</td>
+          <td class="columnaTipoEvento">{{ evento.tipoEvento === 'publico' ? 'Público' : 'Privado' }}</td>
           <td class="columnaResumen">{{ acortadorString(evento.detalles, 100) }}</td>
-          <td class="columnaFecha">{{ evento.fechaFin ? `Del ${fechaCortaMes(evento)} al ${fechaCortaMes({
-            fecha:
-              evento.fechaFin
-          })}` : fechaCortaMes(evento) }}<br>{{ evento.hora.substring(0, 5) }} hrs</td>
+          <td class="columnaFecha">{{ evento.fechaFin ? `${fechaCortaMes(evento)} -\n${fechaCortaMes({fecha: evento.fechaFin})}` : fechaCortaMes(evento) }}<br>{{ evento.hora.substring(0, 5) }} hrs</td>
           <td class="columnaLugar">{{ evento.lugar }}</td>
           <td v-if="admin" class="columnaAcciones">
             <div class=botonAccion>
@@ -79,7 +77,7 @@ import { ref, onMounted, computed, watch } from 'vue';
 import BotonEditar from './buttons/BotonEditar.vue';
 import BotonEliminar from './buttons/BotonEliminar.vue';
 import Paginacion from './Paginacion.vue';
-import { fechaCortaMes, fechaConsulta, acortadorString } from './utils';
+import { fechaCortaMes, formatearFecha, acortadorString } from './utils';
 import { getEventos } from '@/components/queries/queries';
 import { fechaRangoMes, fechaRangoSemana } from './eventosUtils';
 
@@ -130,6 +128,8 @@ const filtrarPorPeriodo = async () => {
 };
 
 const filtrarPorInstitucion = () => {
+  paginaActual.value = 1;
+
   if (institucionSeleccionada.value === 'todas') {
     eventosFiltrados.value = eventos.value;
   } else {
@@ -173,3 +173,9 @@ const obtenerPeriodoSeleccionado = async () => {
   filtrarPorInstitucion();
 };
 </script>
+
+<style scoped>
+.BotonEditar{
+  font-size: 11px;
+}
+</style>

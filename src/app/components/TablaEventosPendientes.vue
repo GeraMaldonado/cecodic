@@ -1,5 +1,6 @@
 <template>
   <div class="pantalla">
+    <h2>Eventos pendientes</h2>
     <table class="tablaEventos">
       <thead>
         <tr>
@@ -24,10 +25,12 @@
           <td class="columnaFecha">{{ eventoPendiente.fechaFin ? `Del ${fechaCortaMes(eventoPendiente)} al ${fechaCortaMes({ fecha: eventoPendiente.fechaFin })}` : fechaCortaMes(eventoPendiente) }}<br>{{ eventoPendiente.hora.substring(0, 5) }} hrs</td>
           <td class="columnaLugar">{{ eventoPendiente.lugar }}</td>
           <td class="columnaLugar">{{ eventoPendiente.estatus }}</td>
-          <td v-if="admin">
-            <BotonEditar :idEvento="eventoPendiente.ideventos" />
-            <BotonEliminar :eventoId="eventoPendiente.ideventos" />
-            <BotonAceptarEvento :idEvento="eventoPendiente.ideventos" :estatus="eventoPendiente.estatus" />
+          <td v-if="admin" class="columnaAcciones">
+            <div class=botonAccion>
+              <div class="botonTabla"><BotonAceptarEvento :idEvento="eventoPendiente.ideventos" :estatus="eventoPendiente.estatus" /></div>
+              <div class="botonTabla"><BotonEditar :idEvento="eventoPendiente.ideventos" /></div>
+              <div class="botonTabla"><BotonEliminar :eventoId="eventoPendiente.ideventos" /></div>
+            </div>
           </td>
         </tr>
       </tbody>

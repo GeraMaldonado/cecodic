@@ -84,8 +84,8 @@
               <option value="aceptado">Aceptado</option>
             </select>
           </td>
-        </tr v-if="!admin">
-          <tr>
+        </tr>
+          <tr v-if="!admin">
             <td class="columnaEtiqueta"><label for="nombreUsuario">Nombre:</label></td>
             <td class="columnaContacto"><input type="text" id="nombreUsuario" name="nombreUsuario" v-model="nombreUsuario" required /></td>
           </tr>
@@ -128,7 +128,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import BotonConfirmar from './buttons/BotonConfirmar.vue';
 import BotonEnviarEventoUsuario from './buttons/BotonEnviarEventoUsuario.vue';
 import { comprobarCorreo } from './queries/queries';
@@ -154,6 +154,13 @@ const numeroUsuario = ref('');
 const codigoUsuario = ref('');
 const codigoEnviado = ref(false);
 
+watch([fecha, fechaFin], ([nuevaFecha, nuevaFechaFin]) => {
+  if (nuevaFecha && nuevaFechaFin && new Date(nuevaFechaFin) < new Date(nuevaFecha)) {
+    alert('La fecha de finalización no puede ser anterior a la fecha de inicio.');
+    fechaFin.value = null;
+  }
+});
+
 const enviarCodigoVerificacion = async () => {
   const contactoUsuario = {
     correo: correoUsuario.value,
@@ -162,9 +169,9 @@ const enviarCodigoVerificacion = async () => {
   };
 
   try {
-    const respuesta = await comprobarCorreo(contactoUsuario);
-      alert(`Código de verificación enviado a ${correoUsuario.value}`);
-      codigoEnviado.value = true;
+    await comprobarCorreo(contactoUsuario);
+    alert(`Código de verificación enviado a ${correoUsuario.value}`);
+    codigoEnviado.value = true;
   } catch (error) {
     alert('Error al enviar el código de verificación. Por favor, revisa la conexión y vuelve a intentar.');
   }
@@ -175,6 +182,7 @@ const onFileChange = (type, event) => {
   if (type === 'img') img.value = file;
   if (type === 'pdf') pdf.value = file;
 };
+
 </script>
 
 

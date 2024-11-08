@@ -1,7 +1,7 @@
 <template>
   <button class="boton" @click="confirmarEvento">
     <div class="boton-content">
-      <i class="fa-solid fa-floppy-disk fa-2xl" style="color: #63E6BE;"></i>
+      <i class="fa-solid fa-floppy-disk fa-2xl" style="color: var(--icon-color2);"></i>
       <p>Guardar</p>
     </div>
   </button>
@@ -60,24 +60,7 @@ const confirmarEvento = async () => {
 </script>
 
 <style scoped>
-/*.boton {
-  border: none;
-  transition: transform 0.3s ease;
-  background: transparent;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-  font-size: 18px;
-  font-weight: bold;
-  color: #63E6BE;
+p{
+  color: var(--icon-color2);
 }
-
-.boton:hover {
-  transform: scale(1.1);
-}
-
-.boton i {
-  margin-bottom: 25px;
-}*/
 </style>

@@ -1,114 +1,152 @@
 .filtros {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+}
+
+.filtroInstitucion {
+  min-width: 300px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  justify-content: center;
+  select{
+    max-width: 200px;
+  }
+}
+
+.filtrofechas {
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  .filtroFecha {
     display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  button, .calendario {
+    width: 125px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}
+
+.navegacionFecha button {
+  background-color: var(--color-boton-pagina);
+  border: 1px solid var(--color-secundario);
+  border-radius: 10px;
+}
+
+.navegacionFecha button:hover {
+  background-color: var(--color-secundario);
+
+}
+
+.filtros p {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.tablaEventos {
+  width: 88vw;
+  margin-bottom: 100px;
+}
+
+.tablaEventos th {
+  height: 30px;
+  color: var(--color-texto1);
+  background-color: var( --color-encabezado);
+  text-align: center;
+  font-size: clamp(12px, 2vw, 16px);
+}
+
+.tablaEventos tr:nth-child(odd) {
+  background-color: var(--color-odds-tabla);
+}
+
+.tablaEventos tr:nth-child(even) {
+  background-color: var(--color-even-tabla);
+}
+
+.columnaTitulo {
+  width: 20%;
+  padding: 2% 1%;
+  overflow: hidden;
+  a {
+    text-decoration: none;
+    color: var(--color-black);
+    font-size: clamp(12px, 3.5vw, 19px);
+    font-weight: 700;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+.columnaInstitucion {
+  width: 10%;
+  color: var(--color-black);
+  font-size: clamp(9px, 3.5vw, 16px);
+  font-weight: 700;
+  text-align: center;
+  overflow: hidden;
+}
+
+.columnaTipoEvento{
+  padding: 2px;
+  width: 12%;
+  font-size: clamp(8px, 3.8vw, 18px);
+  text-align: center;
+}
+
+.columnaFecha,
+.columnaLugar {
+  padding: 2px;
+  width: 10%;
+  font-size: clamp(8px, 3vw, 16px);
+  text-align: center;
+  white-space: pre-line;
+}
+
+.columnaAcciones {
+  width: 133%;
+  .botonAccion {
+    height: 100px;
+    display: flex;
+    justify-content: center;
     align-content: center;
-    justify-content: center;
-  }
-  
-  .filtroInstitucion {
-    min-width: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .filtrofechas {
-    min-width: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  
-    .filtroFecha {
+    gap: 5px;
+    flex-wrap: wrap;
+    .botonTabla{
+      height: 30px;
+      width: 30px;
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-  
-    button, .calendario {
-      width: 125px;
-      margin-left: 5px;
-      margin-right: 5px;
+      margin: 1px;
     }
   }
-  .navegacionFecha button{
-    background-color: rgb(248, 223, 222);
-    border: 1px solid rgb(245, 198, 196);
-    border-radius: 10px;
-  
-  }
-  
-  .filtros p {
-    font-size: 20px;
-    font-weight: 500;
-  }
-  
-  .tablaEventos {
-    width: 88vw;
-    margin-bottom: 100px;
-  }
-  
-  .tablaEventos th {
-    color: white;
-    background-color: rgb(120, 16, 5);
-    text-align: center;
-  }
-  
-  .tablaEventos tr:nth-child(odd) {
-    background-color: rgb(250, 211, 210);
-  }
-  
-  .tablaEventos tr:nth-child(even) {
-    background-color: rgb(247, 185, 183);
-  }
-  
-  .columnaTitulo {
-    width: 20%;
-    padding: 2% 1%;
-    overflow: hidden;
-    a {
-      text-decoration: none;
-      color: black;
-      font-size: 16px;
-      font-weight: 700;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-  }
-  
-  .columnaInstitucion {
-    width: 10%;
-    color: black;
-    font-size: 14px;
-    font-weight: 700;
-    text-align: center;
-    overflow: hidden;
-  }
-  
-  .columnaFecha, .columnaLugar {
-    width: 15%;
-    font-size: 18px;
-    text-align: center;
-  }
-  
-  .columnaAcciones{
-    width: 10%;
-    .botonAccion{
-      display: flex;
-      justify-content: center;
-      align-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-  }
-  
+}
+
+.columnaResumen {
+  padding: 10px;
+  width: 25%;
+  font-size: clamp(12px, 2vw, 18px);
+}
+
+
+
+@media (max-width: 600px) {
+  .resumen,
   .columnaResumen {
-    width: 25%;
+    display: none;
   }
-  @media (max-width: 600px) {
-    .resumen, .columnaResumen{
-      display: none;
-    }
-  }
+}

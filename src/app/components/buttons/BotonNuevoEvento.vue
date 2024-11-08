@@ -1,7 +1,7 @@
 <template>
   <button class='boton' v-if="admin" @click="nuevoEvento">
     <div class="boton-content">
-      <i class="fa-solid fa-file fa-2xl" style="color: #74C0FC;"></i>
+      <i class="fa-solid fa-file fa-2xl" style="color: var(--icon-color6);"></i>
       <p>Nuevo Evento</p>
     </div>
   </button>
@@ -22,6 +22,6 @@ const nuevoEvento = () => {
 
 <style scoped>
 .boton-content p {
-  color: #74C0FC;
+  color: var(--icon-color6);
 }
 </style>
