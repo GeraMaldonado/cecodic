@@ -15,8 +15,7 @@ const getEventosXFechas = async (req, res) => {
     try {
         const { fecha1, fecha2 } = req.params;
         const connection = getConnection();
-        const [result] = await connection.query(
-            `SELECT ideventos, titulo, institucion, fecha, fechaFin, hora, lugar, detalles, img, tipoEvento FROM eventos WHERE ((fechaFin IS NULL AND fecha BETWEEN ? AND ?)) OR ((fecha <= ? AND fechaFin IS NOT NULL AND fechaFin >= ?) OR (fecha BETWEEN ? AND ?) OR (fechaFin BETWEEN ? AND ?)) ORDER BY CONCAT(fecha, " ", hora);`, [fecha1, fecha2, fecha1, fecha2, fecha1, fecha2, fecha1, fecha2]);          
+        const [result] = await connection.query(`SELECT ideventos, titulo, institucion, fecha, fechaFin, hora, lugar, detalles, img, tipoEvento FROM eventos WHERE estatus = 'aceptado' AND ((fechaFin IS NULL AND fecha BETWEEN ? AND ?) OR (fecha <= ? AND fechaFin IS NOT NULL AND fechaFin >= ?) OR (fecha BETWEEN ? AND ?) OR (fechaFin BETWEEN ? AND ?)) ORDER BY CONCAT(fecha, " ", hora);`, [fecha1, fecha2, fecha1, fecha2, fecha1, fecha2, fecha1, fecha2]);          
         res.json(result);
     } catch (error) {
         res.status(500).send(error.message);
@@ -27,7 +26,7 @@ const getEventosXFechas = async (req, res) => {
     try {
         const { fechaEntrada } = req.params;
         const connection = getConnection();
-        const [result] = await connection.query('SELECT ideventos, titulo, institucion, fecha, hora, lugar, detalles, img, fechaFin, tipoEvento, estatus FROM eventos WHERE (fechaFin IS NULL AND fecha = ?) OR (? BETWEEN fecha AND fechaFin) ORDER BY CONCAT(fecha, " ", hora);', [fechaEntrada, fechaEntrada]);
+        const [result] = await connection.query('SELECT ideventos, titulo, institucion, fecha, hora, lugar, detalles, img, fechaFin, tipoEvento, estatus FROM eventos WHERE estatus = "aceptado" AND ((fechaFin IS NULL AND fecha = ?) OR (? BETWEEN fecha AND fechaFin)) ORDER BY CONCAT(fecha, " ", hora);', [fechaEntrada, fechaEntrada]);
         res.json(result);
     } catch (error) {
         res.status(500).send(error.message);
@@ -40,7 +39,7 @@ const getEventosXInstitucion = async (req, res) => {
     try {
         const { institucion } = req.params;
         const connection = getConnection();
-        const [result] = await connection.query('SELECT ideventos, titulo, institucion, fecha, hora, lugar, resumen, img FROM eventos WHERE institucion = ? ORDER BY CONCAT(fecha, " ", hora)', institucion);
+        const [result] = await connection.query('SELECT ideventos, titulo, institucion, fecha, hora, lugar, resumen, img FROM eventos WHERE institucion = ? AND estatus = "aceptado" AND  ORDER BY CONCAT(fecha, " ", hora)', institucion);
         res.json(result);
     } catch (error) {
         res.status(500).send(error.message);
@@ -51,7 +50,7 @@ const getInstituciones = async (req, res) => {
     try {
 
         const connection = getConnection();
-        const [result] = await connection.query('SELECT institucion FROM eventos ORDER BY institucion');
+        const [result] = await connection.query('SELECT institucion FROM eventos WHERE estatus = "aceptado" AND ORDER BY institucion');
         res.json(result);
     } catch (error) {
         res.status(500).send(error.message);
@@ -125,7 +124,7 @@ const deleteEvento = async (req, res) => {
 const getEventosPendientes = async(req, res) =>{
     try {
         const connection = getConnection();
-        const[ result ] = await connection.query('SELECT * FROM eventos WHERE estatus = "pendiente" ORDER BY CONCAT(fecha, " ", hora)');
+        const[ result ] = await connection.query('SELECT * FROM eventos WHERE estatus = "pendiente" ORDER BY CONCAT (fecha, " ", hora) DESC');
         res.json(result);
     } catch (error) {
         res.status(500).send(error.message);
