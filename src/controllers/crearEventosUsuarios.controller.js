@@ -43,7 +43,7 @@ const addEvento = async (req, res) => {
 
         const mensajeAdmin = `Un nuevo evento ha sido creado:\nTítulo: ${titulo}\nInstitución: ${institucion}\nFecha: ${fecha}\nLugar: ${lugar}\n\nContacto\n\tCreado por: ${dataGuardada.nombre}\n\tTeléfono: ${dataGuardada.telefono}\n\tCorreo: ${correo}`;
         await sendEmail(
-            'gmaldonadofelix@uaz.edu.mx', 
+            process.env.EMAIL_ADMIN, 
             `CECODIC: Nuevo Evento Creado ${titulo}`, 
             mensajeAdmin
         );
