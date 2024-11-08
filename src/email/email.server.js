@@ -7,14 +7,14 @@ const transporter = nodemailer.createTransport({
   port: 465,
   secure: true,
   auth: {
-    user: process.env.EMAIL_USER,
+    user: process.env.EMAIL_SERVER,
     pass: process.env.EMAIL_PASSWORD 
   }
 });
 
 const sendEmail = (to, subject, text) => {
   const mailOptions = {
-    from: 'gmaldonadofelix@gmail.com',
+    from: process.env.EMAIL_USER,
     to,
     subject,
     text
