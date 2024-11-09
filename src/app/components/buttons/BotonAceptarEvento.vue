@@ -10,9 +10,11 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { actualizarEstatusEvento } from '../queries/queries';
+import { useToast } from 'primevue/usetoast';
 
 const props = defineProps(['idEvento']);
 const router = useRouter();
+const toast = useToast();
 
 const aceptarEventos = async () => {
   const evento = {
@@ -22,7 +24,7 @@ const aceptarEventos = async () => {
   
   try {
     const data = await actualizarEstatusEvento(evento.idEvento, evento.estatus);
-    alert(`Respuesta del servidor: ${data.message}`);
+    toast.add({ severity: 'success', summary: '', detail: data.message, life: 5000 });
 
     window.location.reload();
   } catch (error) {

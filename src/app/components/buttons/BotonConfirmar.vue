@@ -10,9 +10,11 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { crearEvento, actualizarEvento, subirArchivo } from '../queries/queries';
+import { useToast } from 'primevue/usetoast';
 
 const props = defineProps(['idEvento', 'titulo', 'institucion', 'fecha', 'hora', 'lugar', 'resumen', 'detalles', 'img', 'pdf', 'fechaFin', 'estatus', 'tipoEvento']);
 const router = useRouter();
+const toast = useToast();
 
 const confirmarEvento = async () => {
   const evento = {
@@ -28,7 +30,7 @@ const confirmarEvento = async () => {
   };
 
   if (!evento.titulo || !evento.institucion || !evento.fecha || !evento.hora || !evento.lugar) {
-    alert('Por favor, complete todos los campos requeridos: Titulo, Institución, Fecha, Hora y Lugar.');
+    toast.add({ severity: 'info', summary: '', detail: 'Por favor, complete todos los campos requeridos: Titulo, Institución, Fecha, Hora y Lugar.', life: 5000 });
     return;
   }
 
@@ -44,7 +46,7 @@ const confirmarEvento = async () => {
       if (props.img) await subirArchivo(data.id, props.img, 'img');
       if (props.pdf) await subirArchivo(data.id, props.pdf, 'pdf');
     }
-    alert(`Respuesta del servidor: ${data.message}`);
+    toast.add({ severity: 'success', summary: '', detail: data.message, life: 5000 });
 
     const cleanUrl = window.location.origin + window.location.pathname;
     window.history.replaceState({}, document.title, cleanUrl);

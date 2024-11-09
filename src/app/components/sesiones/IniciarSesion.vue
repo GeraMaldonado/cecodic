@@ -26,10 +26,13 @@
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { url } from '../utils';
+import { useToast } from 'primevue/usetoast';
+
 
 const usuario = ref('');
 const contrasena = ref('');
 const router = useRouter();
+const toast = useToast();
 
 const login = async () => {
   try {
@@ -53,7 +56,8 @@ const login = async () => {
         window.location.reload();
       });
     }
-    alert(`Respuesta del servidor: ${data.message}`);
+    toast.add(data.message === 'Accesando' ? { severity: 'success', summary: 'Éxito', detail: data.message, life: 3500 }:
+    { severity: 'warn', summary: '', detail: data.message, life: 3500 });
   } catch (error) {
     console.error(error);
   }

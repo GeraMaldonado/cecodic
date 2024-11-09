@@ -91,11 +91,11 @@
           </tr>
           <tr v-if="!admin">
             <td class="columnaEtiqueta"><label for="correoUsuario">Correo:</label></td>
-            <td class="columnaContacto"><input type="email" id="correoUsuario" name="correoUsuario" v-model="correoUsuario" required /></td>
+            <td class="columnaContacto"><input type="email" id="correoUsuario" name="correoUsuario" v-model="correoUsuario" required placeholder="nombre@ejemplo.com"/></td>
           </tr>
           <tr v-if="!admin">
             <td class="columnaEtiqueta"><label for="numeroUsuario">Teléfono:</label></td>
-            <td class="columnaContacto"><input type="tel" id="numeroUsuario" name="numeroUsuario" v-model="numeroUsuario" required /></td>
+            <td class="columnaContacto"><input type="tel" id="numeroUsuario" name="numeroUsuario" v-model="numeroUsuario" required pattern="[0-9]*" inputmode="numeric" /></td>
           </tr>
 
           <tr v-if="!admin">
@@ -132,6 +132,7 @@ import { ref, watch } from 'vue';
 import BotonConfirmar from './buttons/BotonConfirmar.vue';
 import BotonEnviarEventoUsuario from './buttons/BotonEnviarEventoUsuario.vue';
 import { comprobarCorreo } from './queries/queries';
+import { useToast } from 'primevue/usetoast';
 
 const titulo = ref('');
 const institucion = ref('');
@@ -153,10 +154,11 @@ const correoUsuario = ref('');
 const numeroUsuario = ref('');
 const codigoUsuario = ref('');
 const codigoEnviado = ref(false);
+const toast = useToast();
 
 watch([fecha, fechaFin], ([nuevaFecha, nuevaFechaFin]) => {
   if (nuevaFecha && nuevaFechaFin && new Date(nuevaFechaFin) < new Date(nuevaFecha)) {
-    alert('La fecha de finalización no puede ser anterior a la fecha de inicio.');
+    toast.add({ severity: 'warn', summary: '', detail: 'La fecha de finalización no puede ser anterior a la fecha de inicio.', life: 5000 });
     fechaFin.value = null;
   }
 });
@@ -170,10 +172,10 @@ const enviarCodigoVerificacion = async () => {
 
   try {
     await comprobarCorreo(contactoUsuario);
-    alert(`Código de verificación enviado a ${correoUsuario.value}`);
+    toast.add({ severity: 'info', summary: '', detail: `Código de verificación enviado a ${correoUsuario.value}`, life: 5000 });
     codigoEnviado.value = true;
   } catch (error) {
-    alert('Error al enviar el código de verificación. Por favor, revisa la conexión y vuelve a intentar.');
+    toast.add({ severity: 'error', summary: '', detail: 'Error al enviar el código de verificación. Por favor, revisa la conexión y vuelve a intentar.', life: 5000 });
   }
 };
 

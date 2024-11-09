@@ -10,9 +10,11 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { enviarEventoUsuario, subirArchivo } from '../queries/queries';
+import { useToast } from 'primevue/usetoast';
 
 const props = defineProps(['idEvento', 'titulo', 'institucion', 'fecha', 'hora', 'lugar', 'resumen', 'detalles', 'img', 'pdf', 'fechaFin', 'estatus', 'tipoEvento', 'correo', 'codigo']);
 const router = useRouter();
+const toast = useToast();
 
 const confirmarEventoUsuario = async () => {
   const evento = {
@@ -30,7 +32,7 @@ const confirmarEventoUsuario = async () => {
   };
 
   if (!evento.titulo || !evento.institucion || !evento.fecha || !evento.hora || !evento.lugar) {
-    alert('Por favor, complete todos los campos requeridos: Titulo, Institución, Fecha, Hora y Lugar.');
+    toast.add({ severity: 'info', summary: '', detail: 'Por favor, complete todos los campos requeridos: Titulo, Institución, Fecha, Hora y Lugar.', life: 3500 });
     return;
   }
 
@@ -40,7 +42,7 @@ const confirmarEventoUsuario = async () => {
     if(!data.error){
       if (props.img) await subirArchivo(data.id, props.img, 'img');
       if (props.pdf) await subirArchivo(data.id, props.pdf, 'pdf');
-      alert(`Respuesta del servidor: ${data.message}`);
+      toast.add({ severity: 'info', summary: '', detail: data.message, life: 3500 });
       const cleanUrl = window.location.origin + window.location.pathname;
       window.history.replaceState({}, document.title, cleanUrl);
 

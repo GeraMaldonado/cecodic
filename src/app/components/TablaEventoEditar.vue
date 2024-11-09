@@ -102,6 +102,7 @@ import { useRoute } from 'vue-router';
 import BotonConfirmar from './buttons/BotonConfirmar.vue';
 import { getEvento } from './queries/queries';
 import { formatearFecha } from './utils';
+import { useToast } from 'primevue/usetoast';
 
 const route = useRoute();
 const evento = ref({
@@ -120,11 +121,12 @@ const img = ref(null);
 const pdf = ref(null);
 const usarFechaFin = ref(!!evento.value.fechaFin);
 const lugaresSeleccionados = ref([]);
+const toast = useToast();
 
 
 watch([() => evento.value.fecha, () => evento.value.fechaFin], ([fecha, fechaFin]) => {
   if (fecha && fechaFin && new Date(fechaFin) < new Date(fecha)) {
-    alert('La fecha de finalización no puede ser anterior a la fecha de inicio.');
+    toast.add({ severity: 'warn', summary: '', detail: 'La fecha de finalización no puede ser anterior a la fecha de inicio.', life: 5000 });
     evento.value.fechaFin = '';
   }
 });
