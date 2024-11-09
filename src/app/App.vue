@@ -5,10 +5,11 @@ import Footer from '@/components/Footer.vue'
 import '@fontsource-variable/jost';
 import '@fortawesome/fontawesome-free/css/all.css'
 import VistaAdmin from './components/sesiones/VistaAdmin.vue';
-
+import Toast from 'primevue/toast';
 </script>
 
 <template>
+  <Toast />
   <header>
     <Header />
   </header>
