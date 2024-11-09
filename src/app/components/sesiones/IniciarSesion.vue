@@ -58,6 +58,8 @@ const login = async () => {
     }
     toast.add(data.message === 'Accesando' ? { severity: 'success', summary: 'Éxito', detail: data.message, life: 3500 }:
     { severity: 'warn', summary: '', detail: data.message, life: 3500 });
+    usuario.value= '';
+    contrasena.value = '';
   } catch (error) {
     console.error(error);
   }
