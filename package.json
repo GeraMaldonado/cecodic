@@ -26,6 +26,8 @@
     "mysql2": "^3.9.4",
     "node-cache": "^5.1.2",
     "nodemailer": "^6.9.16",
+    "primeicons": "^7.0.0",
+    "primevue": "^3.53.0",
     "sequelize": "^6.37.3",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
